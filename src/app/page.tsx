@@ -33,9 +33,9 @@ export default function Home() {
         {/* 右侧：设置按钮 */}
         <Button
           variant="ghost"
-          size="icon"
+          size="icon-lg"
           onClick={handleSettingsClick}
-          className="h-10 w-10 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+          className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
         >
           <Settings className="h-5 w-5" />
         </Button>
