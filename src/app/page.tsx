@@ -90,7 +90,7 @@ export default function Home() {
                     <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
                       JSON
                     </h4>
-                    <pre className="max-h-60 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                    <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
                       {JSON.stringify(block.json, null, 2)}
                     </pre>
                   </div>
@@ -100,7 +100,7 @@ export default function Home() {
                     <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
                       HTML
                     </h4>
-                    <pre className="max-h-60 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                    <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
                       {block.html}
                     </pre>
                   </div>
