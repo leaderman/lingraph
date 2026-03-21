@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
+  const [blocks, setBlocks] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/api/name')
@@ -33,7 +34,7 @@ export default function Home() {
       body: JSON.stringify({ url }),
     });
     const result = await response.json();
-    console.log(result.data);
+    setBlocks(result.data || []);
   };
 
   return (
@@ -71,6 +72,18 @@ export default function Home() {
           />
           <Button onClick={handleLayout}>一键排版</Button>
         </div>
+
+        {/* 文档块展示区域 */}
+        {blocks.length > 0 && (
+          <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
+            <h3 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-100">
+              文档块 ({blocks.length})
+            </h3>
+            <pre className="max-h-96 overflow-auto rounded bg-white p-4 text-sm dark:bg-slate-900">
+              {JSON.stringify(blocks, null, 2)}
+            </pre>
+          </div>
+        )}
       </main>
     </div>
   );
