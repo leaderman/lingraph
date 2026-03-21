@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as lark from '@larksuiteoapi/node-sdk';
 
+// 全局飞书客户端
+const client = new lark.Client({
+  appId: process.env.APP_ID || '',
+  appSecret: process.env.APP_SECRET || '',
+});
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -16,13 +22,6 @@ export async function POST(request: NextRequest) {
 
     console.log('文档类型:', type);
     console.log('文档标识:', documentId);
-
-    const client = new lark.Client({
-      appId: process.env.APP_ID || '',
-      appSecret: process.env.APP_SECRET || '',
-    });
-
-    console.log('飞书客户端创建完成');
 
     // 如果是 wiki 类型，获取真实文档 ID
     if (type === 'wiki') {
