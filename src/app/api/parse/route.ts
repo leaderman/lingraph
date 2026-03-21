@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         document_id: documentId,
       },
     })) {
-      if (page.items && Array.isArray(page.items)) {
+      if (page && page.items && Array.isArray(page.items)) {
         blocks.push(...page.items);
       }
     }
