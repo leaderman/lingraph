@@ -36,45 +36,19 @@ export async function POST(request: NextRequest) {
       console.log('文档标识（wiki）:', documentId);
     }
 
-    // 获取文档所有块（使用原始 HTTP 请求）
+    // 获取文档所有块
     const allBlocks: any[] = [];
-    let pageToken: string | undefined = undefined;
-    let hasMore = true;
 
-    // 获取 tenant access token
-    const tokenRes: any = await client.auth.tenantAccessToken.internal({
-      data: {
-        app_id: process.env.APP_ID || '',
-        app_secret: process.env.APP_SECRET || '',
+    for await (const item of await client.docx.v1.documentBlock.listWithIterator({
+      path: {
+        document_id: documentId,
       },
-    });
-    const tenantToken = tokenRes.tenant_access_token;
-
-    while (hasMore) {
-      const params = new URLSearchParams();
-      params.append('document_id', documentId);
-      params.append('page_size', '500');
-      if (pageToken) {
-        params.append('page_token', pageToken);
-      }
-
-      const response = await fetch(
-        `https://open.feishu.cn/open-apis/docx/v1/documents/${documentId}/blocks?${params.toString()}`,
-        {
-          headers: {
-            Authorization: `Bearer ${tenantToken}`,
-          },
-        }
-      );
-
-      const res = await response.json();
-
-      if (res.data?.items) {
-        allBlocks.push(...res.data.items);
-      }
-
-      hasMore = res.data?.has_more === true;
-      pageToken = res.data?.next_page_token;
+      params: {
+        page_size: 500,
+        document_revision_id: -1,
+      },
+    })) {
+      allBlocks.push(item);
     }
 
     console.log('文档块总数:', allBlocks.length);
