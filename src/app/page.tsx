@@ -35,7 +35,7 @@ export default function Home() {
           variant="ghost"
           size="icon"
           onClick={handleSettingsClick}
-          className="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+          className="h-10 w-10 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
         >
           <Settings className="h-5 w-5" />
         </Button>
