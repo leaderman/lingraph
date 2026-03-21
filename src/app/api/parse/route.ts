@@ -39,12 +39,14 @@ export async function POST(request: NextRequest) {
     // 获取文档所有块
     const blocks: any[] = [];
 
-    for await (const block of await client.docx.v1.documentBlock.listWithIterator({
+    for await (const page of await client.docx.v1.documentBlock.listWithIterator({
       path: {
         document_id: documentId,
       },
     })) {
-      blocks.push(block);
+      if (page.items && Array.isArray(page.items)) {
+        blocks.push(...page.items);
+      }
     }
 
     console.log('文档块总数:', blocks.length);
