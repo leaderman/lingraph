@@ -1,13 +1,14 @@
-function page(block: any) {
+function page(block: any, titleFontSize: number) {
   const content = block.page?.elements?.[0]?.text_run?.content;
+  block.html = `<div style="font-size:${titleFontSize}px; font-weight:700;">${content || ''}</div>`;
 }
 
-export function processBlockByType(block: any) {
+export function processBlockByType(block: any, titleFontSize: number) {
   const blockType = block.block_type;
 
   switch (blockType) {
     case 1:
-      page(block);
+      page(block, titleFontSize);
       break;
     case 2:
       break;
