@@ -48,7 +48,6 @@ export async function POST(request: NextRequest) {
     }
 
     console.log('文档块总数:', blocks.length);
-    console.log('文档块:', JSON.stringify(blocks, null, 2));
 
     return NextResponse.json({
       code: 200,
