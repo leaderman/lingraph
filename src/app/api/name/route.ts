@@ -7,5 +7,5 @@ export async function GET(request: NextRequest) {
     code: 200,
     msg: 'success',
     data: appName,
-  }, { status: 200 });
+  });
 }
