@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
       // 从返回结果中提取 obj_token 更新 documentId
       documentId = res.data?.node?.obj_token || documentId;
-      console.log('更新后的文档标识:', documentId);
+      console.log('文档标识（wiki）:', documentId);
     }
 
     return NextResponse.json({
