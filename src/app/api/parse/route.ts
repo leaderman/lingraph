@@ -33,11 +33,9 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      // 从返回结果中提取 obj_token 作为新的 documentId
-      if (res.data?.node?.obj_token) {
-        documentId = res.data.node.obj_token;
-        console.log('更新后的文档标识:', documentId);
-      }
+      // 从返回结果中提取 obj_token 更新 documentId
+      documentId = res.data?.node?.obj_token || documentId;
+      console.log('更新后的文档标识:', documentId);
     }
 
     return NextResponse.json({
