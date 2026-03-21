@@ -1,35 +1,34 @@
-// 根据 block_type 处理文档块
 export function processBlockByType(block: any) {
   const blockType = block.block_type;
 
   switch (blockType) {
-    case 1: // 文本块
+    case 1:
       break;
-    case 2: // 一级标题
+    case 2:
       break;
-    case 3: // 二级标题
+    case 3:
       break;
-    case 4: // 三级标题
+    case 4:
       break;
-    case 5: // 四级标题
+    case 5:
       break;
-    case 6: // 五级标题
+    case 6:
       break;
-    case 7: // 六级标题
+    case 7:
       break;
-    case 8: // 无序列表
+    case 8:
       break;
-    case 9: // 有序列表
+    case 9:
       break;
-    case 11: // 图片
+    case 11:
       break;
-    case 12: // 表格
+    case 12:
       break;
-    case 14: // 引用容器
+    case 14:
       break;
-    case 15: // 代码块
+    case 15:
       break;
-    case 16: // 分割线
+    case 16:
       break;
     default:
       break;
