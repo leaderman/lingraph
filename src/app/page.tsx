@@ -84,35 +84,37 @@ export default function Home() {
                 key={index}
                 className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
               >
-                {/* 1. JSON 字符串 */}
-                <div className="mb-4">
-                  <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                    JSON
-                  </h4>
-                  <pre className="max-h-40 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                    {JSON.stringify(block.json, null, 2)}
-                  </pre>
-                </div>
+                <div className="grid grid-cols-3 gap-4">
+                  {/* 1. JSON 字符串 */}
+                  <div>
+                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                      JSON
+                    </h4>
+                    <pre className="max-h-60 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                      {JSON.stringify(block.json, null, 2)}
+                    </pre>
+                  </div>
 
-                {/* 2. HTML 字符串 */}
-                <div className="mb-4">
-                  <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                    HTML
-                  </h4>
-                  <pre className="max-h-40 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                    {block.html}
-                  </pre>
-                </div>
+                  {/* 2. HTML 字符串 */}
+                  <div>
+                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                      HTML
+                    </h4>
+                    <pre className="max-h-60 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                      {block.html}
+                    </pre>
+                  </div>
 
-                {/* 3. HTML 渲染效果 */}
-                <div>
-                  <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                    渲染效果
-                  </h4>
-                  <div
-                    className="rounded border border-slate-200 p-3 dark:border-slate-700"
-                    dangerouslySetInnerHTML={{ __html: block.html }}
-                  />
+                  {/* 3. HTML 渲染效果 */}
+                  <div>
+                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                      渲染效果
+                    </h4>
+                    <div
+                      className="max-h-60 overflow-auto rounded border border-slate-200 p-3 dark:border-slate-700"
+                      dangerouslySetInnerHTML={{ __html: block.html }}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
