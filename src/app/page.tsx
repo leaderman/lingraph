@@ -7,8 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { processBlockByType } from '@/lib/block-processor';
 
-import { processBlockByType } from '@/lib/block-processor';
-
 export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
