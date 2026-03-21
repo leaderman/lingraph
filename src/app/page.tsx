@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 
 export default function Home() {
   const [appName, setAppName] = useState('');
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
     fetch('/api/name')
@@ -21,6 +22,18 @@ export default function Home() {
 
   const handleSettingsClick = () => {
     // 设置按钮点击事件，暂时为空
+  };
+
+  const handleParse = async () => {
+    const response = await fetch('/api/parse', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ url }),
+    });
+    const result = await response.json();
+    console.log(result.data);
   };
 
   return (
@@ -53,8 +66,10 @@ export default function Home() {
             type="text"
             placeholder="请输入飞书文档链接"
             className="flex-1"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
           />
-          <Button>一键排版</Button>
+          <Button onClick={handleParse}>一键排版</Button>
         </div>
       </main>
     </div>
