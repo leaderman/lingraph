@@ -44,7 +44,7 @@ export default function Home() {
       </header>
 
       {/* 下方内容区域 */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 bg-white p-6 dark:bg-slate-900">
         <div className="flex items-center gap-4">
           <Label className="whitespace-nowrap text-sm font-medium text-slate-700 dark:text-slate-300">
             飞书文档链接
