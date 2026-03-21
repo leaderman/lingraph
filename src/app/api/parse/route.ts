@@ -37,6 +37,31 @@ export async function POST(request: NextRequest) {
       console.log('文档标识（wiki）:', documentId);
     }
 
+    // 获取文档所有块
+    const allBlocks: any[] = [];
+    let pageToken: string | undefined = undefined;
+    let hasMore = true;
+
+    while (hasMore) {
+      const res: any = await client.docx.v1.documents.listBlocks({
+        params: {
+          document_id: documentId,
+          page_size: 500,
+          ...(pageToken ? { page_token: pageToken } : {}),
+        },
+      });
+
+      if (res.data?.items) {
+        allBlocks.push(...res.data.items);
+      }
+
+      hasMore = res.data?.has_more === true;
+      pageToken = res.data?.next_page_token;
+    }
+
+    console.log('文档块总数:', allBlocks.length);
+    console.log('文档块:', allBlocks);
+
     return NextResponse.json({
       code: 200,
       msg: 'success',
