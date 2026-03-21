@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const [appName, setAppName] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/name')
@@ -14,6 +15,9 @@ export default function Home() {
         if (data.code === 200) {
           setAppName(data.data);
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -27,7 +31,7 @@ export default function Home() {
       <header className="flex items-center justify-between border-b border-slate-200 bg-white/80 px-6 py-4 backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80">
         {/* 左侧：应用名称 */}
         <div className="text-xl font-semibold text-slate-800 dark:text-slate-100">
-          {appName || '加载中...'}
+          {loading ? '加载中...' : appName}
         </div>
 
         {/* 右侧：设置按钮 */}
