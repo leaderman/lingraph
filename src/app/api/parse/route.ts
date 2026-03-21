@@ -49,6 +49,6 @@ export async function POST(request: NextRequest) {
       code: 500,
       msg: 'error',
       data: null,
-    }, { status: 200 });
+    });
   }
 }
