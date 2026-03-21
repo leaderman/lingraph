@@ -1,8 +1,11 @@
+function page(block: any) {}
+
 export function processBlockByType(block: any) {
   const blockType = block.block_type;
 
   switch (blockType) {
     case 1:
+      page(block);
       break;
     case 2:
       break;
