@@ -12,6 +12,8 @@ export async function POST(request: NextRequest) {
     appSecret: process.env.APP_SECRET || '',
   });
 
+  console.log('飞书客户端创建完成');
+
   return NextResponse.json({
     code: 200,
     msg: 'success',
