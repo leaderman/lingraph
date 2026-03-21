@@ -1,4 +1,6 @@
-function page(block: any) {}
+function page(block: any) {
+  const content = block.page?.elements?.[0]?.text_run?.content;
+}
 
 export function processBlockByType(block: any) {
   const blockType = block.block_type;
