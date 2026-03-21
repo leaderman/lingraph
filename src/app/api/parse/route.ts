@@ -33,8 +33,6 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      console.log('wiki 节点信息:', res);
-
       // 从返回结果中提取 obj_token 作为新的 documentId
       if (res.data?.node?.obj_token) {
         documentId = res.data.node.obj_token;
