@@ -24,7 +24,7 @@ export default function Home() {
     // 设置按钮点击事件，暂时为空
   };
 
-  const handleParse = async () => {
+  const handleLayout = async () => {
     const response = await fetch('/api/parse', {
       method: 'POST',
       headers: {
@@ -69,7 +69,7 @@ export default function Home() {
             value={url || ''}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <Button onClick={handleParse}>一键排版</Button>
+          <Button onClick={handleLayout}>一键排版</Button>
         </div>
       </main>
     </div>
