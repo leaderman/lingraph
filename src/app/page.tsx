@@ -75,13 +75,47 @@ export default function Home() {
 
         {/* 文档块展示区域 */}
         {blocks.length > 0 && (
-          <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
-            <h3 className="mb-4 text-lg font-semibold text-slate-800 dark:text-slate-100">
+          <div className="mt-6 space-y-4">
+            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
               文档块 ({blocks.length})
             </h3>
-            <pre className="max-h-96 overflow-auto rounded bg-white p-4 text-sm dark:bg-slate-900">
-              {JSON.stringify(blocks, null, 2)}
-            </pre>
+            {blocks.map((block, index) => (
+              <div
+                key={index}
+                className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+              >
+                {/* 1. JSON 字符串 */}
+                <div className="mb-4">
+                  <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                    JSON
+                  </h4>
+                  <pre className="max-h-40 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                    {JSON.stringify(block.json, null, 2)}
+                  </pre>
+                </div>
+
+                {/* 2. HTML 字符串 */}
+                <div className="mb-4">
+                  <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                    HTML
+                  </h4>
+                  <pre className="max-h-40 overflow-auto rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                    {block.html}
+                  </pre>
+                </div>
+
+                {/* 3. HTML 渲染效果 */}
+                <div>
+                  <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                    渲染效果
+                  </h4>
+                  <div
+                    className="rounded border border-slate-200 p-3 dark:border-slate-700"
+                    dangerouslySetInnerHTML={{ __html: block.html }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </main>

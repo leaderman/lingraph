@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       console.log('文档标识（wiki）:', documentId);
     }
 
-    // 获取文档所有块
+    // 获取文档所有块并转换为 JSON + HTML
     const blocks: any[] = [];
 
     for await (const page of await client.docx.v1.documentBlock.listWithIterator({
@@ -45,7 +45,12 @@ export async function POST(request: NextRequest) {
       },
     })) {
       if (page && page.items && Array.isArray(page.items)) {
-        blocks.push(...page.items);
+        for (const block of page.items) {
+          blocks.push({
+            json: block,
+            html: `<div class="p-2 border rounded" data-block-type="${block.block_type}">[Block Type: ${block.block_type}]</div>`,
+          });
+        }
       }
     }
 
