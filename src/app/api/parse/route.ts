@@ -41,6 +41,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       code: 200,
       msg: 'success',
+      data: null,
     });
   } catch (e: any) {
     console.error('飞书文档解析错误:', JSON.stringify(e.response?.data || e.message, null, 4));
