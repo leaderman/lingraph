@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
     // 解析飞书文档链接
     const urlObj = new URL(url);
     const pathParts = urlObj.pathname.split('/').filter(Boolean);
-    const type = pathParts[0]; // wiki
-    let documentId = pathParts[1]; // ET97wMEEBilKBKkBS2rck63nnXf
+    const type = pathParts[0];
+    let documentId = pathParts[1];
 
     console.log('文档类型:', type);
     console.log('文档标识:', documentId);
