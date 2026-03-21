@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       data: null,
     });
   } catch (e: any) {
-    console.error('接口处理失败:', JSON.stringify(e.response?.data || e.message, null, 4));
+    console.error('飞书文档解析错误:', JSON.stringify(e.response?.data || e.message, null, 4));
     return NextResponse.json({
       code: 500,
       msg: 'error',
