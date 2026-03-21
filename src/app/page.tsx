@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function Home() {
   const [appName, setAppName] = useState('');
@@ -43,7 +45,17 @@ export default function Home() {
 
       {/* 下方内容区域 */}
       <main className="flex-1 p-6">
-        {/* 内容暂为空 */}
+        <div className="flex items-center gap-4">
+          <Label className="whitespace-nowrap text-sm font-medium text-slate-700 dark:text-slate-300">
+            飞书文档链接
+          </Label>
+          <Input
+            type="text"
+            placeholder="请输入飞书文档链接"
+            className="flex-1"
+          />
+          <Button>一键排版</Button>
+        </div>
       </main>
     </div>
   );
