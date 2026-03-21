@@ -22,6 +22,8 @@ export async function POST(request: NextRequest) {
       appSecret: process.env.APP_SECRET || '',
     });
 
+    console.log('飞书客户端创建完成');
+
     // 如果是 wiki 类型，获取真实文档 ID
     if (type === 'wiki') {
       const res = await client.wiki.v2.space.getNode({
