@@ -46,8 +46,9 @@ export default function Home() {
     const result = await response.json();
     
     const blocks = result.data || [];
+    const config = { titleFontSize };
     blocks.forEach((block: any) => {
-      processBlockByType(block.json, titleFontSize);
+      processBlockByType(block.json, config);
     });
     
     setBlocks(blocks);

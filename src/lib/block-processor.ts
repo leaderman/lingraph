@@ -1,14 +1,18 @@
-function page(block: any, titleFontSize: number) {
-  const content = block.page?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${titleFontSize}px; font-weight:700;">${content || ''}</div>`;
+interface BlockConfig {
+  titleFontSize: number;
 }
 
-export function processBlockByType(block: any, titleFontSize: number) {
+function page(block: any, config: BlockConfig) {
+  const content = block.page?.elements?.[0]?.text_run?.content;
+  block.html = `<div style="font-size:${config.titleFontSize}px; font-weight:700;">${content || ''}</div>`;
+}
+
+export function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.block_type;
 
   switch (blockType) {
     case 1:
-      page(block, titleFontSize);
+      page(block, config);
       break;
     case 2:
       break;
