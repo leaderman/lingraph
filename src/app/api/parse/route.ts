@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         for (const block of page.items) {
           blocks.push({
             json: block,
-            html: `<div class="p-2 border rounded" data-block-type="${block.block_type}">[Block Type: ${block.block_type}]</div>`,
+            html: '',
           });
         }
       }
