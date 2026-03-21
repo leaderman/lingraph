@@ -18,7 +18,7 @@ export default function Home() {
       .then((data) => {
         if (data.code === 200) {
           setAppName(data.data);
-          document.title = data.data || '灵图';
+          document.title = data.data;
         }
       });
   }, []);
