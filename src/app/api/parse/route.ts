@@ -43,10 +43,6 @@ export async function POST(request: NextRequest) {
       path: {
         document_id: documentId,
       },
-      params: {
-        page_size: 500,
-        document_revision_id: -1,
-      },
     })) {
       allBlocks.push(item);
     }
