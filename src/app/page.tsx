@@ -66,7 +66,7 @@ export default function Home() {
             type="text"
             placeholder="请输入飞书文档链接"
             className="flex-1"
-            value={url}
+            value={url || ''}
             onChange={(e) => setUrl(e.target.value)}
           />
           <Button onClick={handleParse}>一键排版</Button>
