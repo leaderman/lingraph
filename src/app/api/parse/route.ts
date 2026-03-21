@@ -5,6 +5,8 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { url } = body;
 
+  console.log('接收到的URL:', url);
+
   const client = new lark.Client({
     appId: process.env.APP_ID || '',
     appSecret: process.env.APP_SECRET || '',
