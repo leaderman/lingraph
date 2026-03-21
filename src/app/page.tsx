@@ -5,12 +5,20 @@ import { Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { processBlockByType } from '@/lib/block-processor';
 
 export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
   const [blocks, setBlocks] = useState<any[]>([]);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [titleFontSize, setTitleFontSize] = useState(28);
 
   useEffect(() => {
     fetch('/api/name')
@@ -24,7 +32,7 @@ export default function Home() {
   }, []);
 
   const handleSettingsClick = () => {
-    // 设置按钮点击事件，暂时为空
+    setSettingsOpen(true);
   };
 
   const handleLayout = async () => {
@@ -37,7 +45,6 @@ export default function Home() {
     });
     const result = await response.json();
     
-    // 专用 blocks 变量接收所有块，并根据 block_type 处理
     const blocks = result.data || [];
     blocks.forEach((block: any) => {
       processBlockByType(block.json);
@@ -65,6 +72,26 @@ export default function Home() {
           <Settings className="h-5 w-5" />
         </Button>
       </header>
+
+      {/* 设置对话框 */}
+      <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>设置</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">文档标题字体大小</Label>
+              <Input
+                type="number"
+                value={titleFontSize}
+                onChange={(e) => setTitleFontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* 下方内容区域 */}
       <main className="flex-1 bg-white p-6 dark:bg-slate-900">
