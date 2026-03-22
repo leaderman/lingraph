@@ -4,6 +4,7 @@ interface BlockConfig {
   heading2FontSize: number;
   heading3FontSize: number;
   textFontSize: number;
+  sequence: number;
 }
 
 function page(block: any, config: BlockConfig) {
@@ -40,7 +41,13 @@ function bullet(block: any, config: BlockConfig) {
 function ordered(block: any, config: BlockConfig) {
   const elements = block.json.ordered?.elements || [];
   const content = elements.map((el: any) => el.text_run?.content || '').join('');
-  block.html = `<div style="font-size:${config.textFontSize}px;"><ol style="list-style-type:decimal; padding-left:20px;"><li>${content}</li></ol></div>`;
+  const sequence = block.json.ordered?.style?.sequence;
+  if (sequence === '1') {
+    config.sequence = 1;
+  } else {
+    config.sequence = config.sequence + 1;
+  }
+  block.html = `<div style="font-size:${config.textFontSize}px;"><ol start="${config.sequence}" style="list-style-type:decimal; padding-left:20px;"><li>${content}</li></ol></div>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
