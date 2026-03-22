@@ -34,12 +34,6 @@ export default function Home() {
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    requestAnimationFrame(() => {
-      hljs.highlightAll();
-    });
-  }, [blocks, activeTab]);
-
-  useEffect(() => {
     if (!shouldMeasure || blocks.length === 0) return;
     
     const newBlocks = blocks.map((block, index) => {
@@ -59,6 +53,12 @@ export default function Home() {
     setBlocks(newBlocks);
     setShouldMeasure(false);
   }, [shouldMeasure, blocks]);
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      hljs.highlightAll();
+    });
+  }, [blocks, activeTab]);
 
   useEffect(() => {
     fetch('/api/name')
