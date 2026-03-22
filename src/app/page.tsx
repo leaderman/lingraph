@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { processBlockByType } from '@/lib/block-processor';
 import hljs from 'highlight.js';
 
@@ -32,14 +31,6 @@ export default function Home() {
   useEffect(() => {
     hljs.highlightAll();
   }, [blocks]);
-
-  useEffect(() => {
-    if (activeTab === 'blocks') {
-      setTimeout(() => {
-        hljs.highlightAll();
-      }, 0);
-    }
-  }, [activeTab]);
 
   useEffect(() => {
     fetch('/api/name')
@@ -208,63 +199,97 @@ export default function Home() {
 
         {/* 文档块展示区域 */}
         <div className="mt-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList>
-              <TabsTrigger value="blocks">文档块 ({blocks.length})</TabsTrigger>
-              <TabsTrigger value="container">容器</TabsTrigger>
-              <TabsTrigger value="images">图片</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="blocks" className="space-y-4">
-              {blocks.map((block, index) => (
-                <div
-                  key={index}
-                  className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
-                >
-                  <div className="flex gap-4">
-                    {/* 1. JSON 字符串 */}
-                    <div className="flex-1">
-                      <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                        JSON
-                      </h4>
-                      <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                        {JSON.stringify(block.json, null, 2)}
-                      </pre>
-                    </div>
+          {/* 自定义 Tab 导航 */}
+          <div className="flex gap-1 rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
+            <button
+              onClick={() => setActiveTab('blocks')}
+              className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                activeTab === 'blocks'
+                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100'
+              }`}
+            >
+              文档块 ({blocks.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('container')}
+              className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                activeTab === 'container'
+                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100'
+              }`}
+            >
+              容器
+            </button>
+            <button
+              onClick={() => setActiveTab('images')}
+              className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                activeTab === 'images'
+                  ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100'
+              }`}
+            >
+              图片
+            </button>
+          </div>
 
-                    {/* 2. HTML 字符串 */}
-                    <div className="flex-1">
-                      <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                        HTML
-                      </h4>
-                      <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                        {block.html}
-                      </pre>
-                    </div>
+          {/* Tab 内容 - 使用 hidden 类控制显隐，保持 DOM 存在 */}
+          <div className="mt-4">
+            {/* 文档块 Tab */}
+            <div className={activeTab === 'blocks' ? 'block' : 'hidden'}>
+              <div className="space-y-4">
+                {blocks.map((block, index) => (
+                  <div
+                    key={index}
+                    className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                  >
+                    <div className="flex gap-4">
+                      {/* 1. JSON 字符串 */}
+                      <div className="flex-1">
+                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                          JSON
+                        </h4>
+                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                          {JSON.stringify(block.json, null, 2)}
+                        </pre>
+                      </div>
 
-                    {/* 3. HTML 渲染效果 */}
-                    <div style={{ width: imageWidth }}>
-                      <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                        {block.block_name}
-                      </h4>
-                      <div
-                        className="rounded border border-slate-200 p-3 dark:border-slate-700"
-                        dangerouslySetInnerHTML={{ __html: block.html }}
-                      />
+                      {/* 2. HTML 字符串 */}
+                      <div className="flex-1">
+                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                          HTML
+                        </h4>
+                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                          {block.html}
+                        </pre>
+                      </div>
+
+                      {/* 3. HTML 渲染效果 */}
+                      <div style={{ width: imageWidth }}>
+                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                          {block.block_name}
+                        </h4>
+                        <div
+                          className="rounded border border-slate-200 p-3 dark:border-slate-700"
+                          dangerouslySetInnerHTML={{ __html: block.html }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </TabsContent>
-            
-            <TabsContent value="container">
+                ))}
+              </div>
+            </div>
+
+            {/* 容器 Tab */}
+            <div className={activeTab === 'container' ? 'block' : 'hidden'}>
               {/* 容器内容待添加 */}
-            </TabsContent>
-            
-            <TabsContent value="images">
+            </div>
+
+            {/* 图片 Tab */}
+            <div className={activeTab === 'images' ? 'block' : 'hidden'}>
               {/* 图片内容待添加 */}
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
       </main>
     </div>
