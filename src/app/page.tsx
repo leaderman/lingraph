@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ChevronDown, ChevronUp, Settings } from 'lucide-react';
+import { ChevronDown, ChevronUp, Loader2, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,6 +22,9 @@ export default function Home() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [blocksOpen, setBlocksOpen] = useState(false);
   const [imagesOpen, setImagesOpen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [blocksLoading, setBlocksLoading] = useState(false);
+  const [imagesLoading, setImagesLoading] = useState(false);
   const [titleFontSize, setTitleFontSize] = useState(28);
   const [heading1FontSize, setHeading1FontSize] = useState(24);
   const [heading2FontSize, setHeading2FontSize] = useState(22);
@@ -48,7 +51,10 @@ export default function Home() {
   };
 
   const handleLayout = async () => {
+    setIsLoading(true);
+    
     // 第一步：获取文档块
+    setBlocksLoading(true);
     const response = await fetch('/api/parse', {
       method: 'POST',
       headers: {
@@ -67,9 +73,15 @@ export default function Home() {
     }));
     
     setBlocks(blocks);
+    setBlocksLoading(false);
 
-    // 第二步：生成图片（暂时为空，后续可独立获取）
+    // 第二步：生成图片（暂时模拟）
+    setImagesLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setImages([]);
+    setImagesLoading(false);
+    
+    setIsLoading(false);
   };
 
   return (
@@ -160,79 +172,103 @@ export default function Home() {
             className="flex-1"
             value={url || ''}
             onChange={(e) => setUrl(e.target.value)}
+            disabled={isLoading}
           />
-          <Button onClick={handleLayout}>一键排版</Button>
+          <Button onClick={handleLayout} disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                处理中...
+              </>
+            ) : (
+              '一键排版'
+            )}
+          </Button>
         </div>
 
-        {/* 第一步：文档块区域 */}
-        {blocks.length > 0 && (
+        {/* 文档块区域 */}
+        {(blocks.length > 0 || blocksLoading) && (
           <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setBlocksOpen(!blocksOpen)}
               className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              <span>文档块 ({blocks.length})</span>
+              <span>文档块 {blocksLoading && '(生成中...)'}</span>
               {blocksOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
             {blocksOpen && (
-              <div className="space-y-4 border-t border-slate-200 p-4 dark:border-slate-700">
-                {blocks.map((block, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
-                  >
-                    <div className="grid grid-cols-3 gap-4">
-                      {/* 1. JSON 字符串 */}
-                      <div>
-                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                          JSON
-                        </h4>
-                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                          {JSON.stringify(block.json, null, 2)}
-                        </pre>
-                      </div>
-
-                      {/* 2. HTML 字符串 */}
-                      <div>
-                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                          HTML
-                        </h4>
-                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                          {block.html}
-                        </pre>
-                      </div>
-
-                      {/* 3. HTML 渲染效果 */}
-                      <div>
-                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                          {block.block_name}
-                        </h4>
-                        <div
-                          className="rounded border border-slate-200 p-3 dark:border-slate-700"
-                          dangerouslySetInnerHTML={{ __html: block.html }}
-                        />
-                      </div>
-                    </div>
+              <div className="border-t border-slate-200 p-4 dark:border-slate-700">
+                {blocksLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+                    <span className="ml-2 text-slate-500">正在生成文档块...</span>
                   </div>
-                ))}
+                ) : (
+                  <div className="space-y-4">
+                    {blocks.map((block, index) => (
+                      <div
+                        key={index}
+                        className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                      >
+                        <div className="grid grid-cols-3 gap-4">
+                          {/* 1. JSON 字符串 */}
+                          <div>
+                            <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                              JSON
+                            </h4>
+                            <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                              {JSON.stringify(block.json, null, 2)}
+                            </pre>
+                          </div>
+
+                          {/* 2. HTML 字符串 */}
+                          <div>
+                            <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                              HTML
+                            </h4>
+                            <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                              {block.html}
+                            </pre>
+                          </div>
+
+                          {/* 3. HTML 渲染效果 */}
+                          <div>
+                            <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                              {block.block_name}
+                            </h4>
+                            <div
+                              className="rounded border border-slate-200 p-3 dark:border-slate-700"
+                              dangerouslySetInnerHTML={{ __html: block.html }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>
         )}
 
-        {/* 第二步：图片区域 */}
-        {blocks.length > 0 && (
+        {/* 图片区域 */}
+        {(blocks.length > 0 || imagesLoading) && (
           <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setImagesOpen(!imagesOpen)}
               className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              <span>图片 ({images.length})</span>
+              <span>图片 {imagesLoading && '(生成中...)'}</span>
               {imagesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
             {imagesOpen && (
               <div className="border-t border-slate-200 p-4 dark:border-slate-700">
-                {images.length === 0 ? (
+                {imagesLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+                    <span className="ml-2 text-slate-500">正在生成图片...</span>
+                  </div>
+                ) : images.length === 0 ? (
                   <p className="text-sm text-slate-500">暂无图片</p>
                 ) : (
                   <div className="grid grid-cols-4 gap-4">
