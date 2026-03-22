@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { Settings } from 'lucide-react';
+import { Settings, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,6 +28,7 @@ export default function Home() {
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
   const [activeTab, setActiveTab] = useState('blocks');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -51,24 +52,30 @@ export default function Home() {
   };
 
   const handleLayout = async () => {
-    const response = await fetch('/api/parse', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ url }),
-    });
-    const result = await response.json();
-    
-    const rawBlocks = result.data || [];
-    const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1, imageWidth, imageHeight };
-    const blocks = await Promise.all(rawBlocks.map(async (json: any) => {
-      const block = { json, html: '' };
-      await processBlockByType(block, config);
-      return block;
-    }));
-    
-    setBlocks(blocks);
+    if (loading) return;
+    setLoading(true);
+    try {
+      const response = await fetch('/api/parse', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url }),
+      });
+      const result = await response.json();
+      
+      const rawBlocks = result.data || [];
+      const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1, imageWidth, imageHeight };
+      const blocks = await Promise.all(rawBlocks.map(async (json: any) => {
+        const block = { json, html: '' };
+        await processBlockByType(block, config);
+        return block;
+      }));
+      
+      setBlocks(blocks);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -197,7 +204,16 @@ export default function Home() {
             value={url || ''}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <Button onClick={handleLayout}>一键排版</Button>
+          <Button onClick={handleLayout} disabled={loading}>
+            {loading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                排版中...
+              </>
+            ) : (
+              '一键排版'
+            )}
+          </Button>
         </div>
 
         {/* 文档块展示区域 */}
