@@ -61,11 +61,7 @@ export async function POST(request: NextRequest) {
           },
         });
         
-        const tmpDownloadUrl = res.data?.tmp_download_urls?.[0]?.tmp_download_url || '';
-        
-        if (tmpDownloadUrl) {
-          block.image.url = tmpDownloadUrl;
-        }
+        block.image.url = res.data.tmp_download_urls[0].tmp_download_url;
       } catch (error) {
         console.error('获取图片下载链接失败:', token, error);
       }
