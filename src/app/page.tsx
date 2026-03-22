@@ -19,6 +19,7 @@ export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
   const [blocks, setBlocks] = useState<any[]>([]);
+  const [images, setImages] = useState<any[]>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [titleFontSize, setTitleFontSize] = useState(28);
   const [heading1FontSize, setHeading1FontSize] = useState(24);
