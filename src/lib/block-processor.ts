@@ -50,16 +50,6 @@ export function processBlockByType(block: any, config: BlockConfig) {
     case 5:
       heading3(block, config);
       break;
-    case 6:
-      break;
-    case 7:
-      break;
-    case 8:
-      break;
-    case 9:
-      break;
-    case 11:
-      break;
     case 12:
       break;
     case 14:
