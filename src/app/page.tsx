@@ -207,9 +207,9 @@ export default function Home() {
                 key={index}
                 className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
               >
-                <div className="grid grid-cols-3 gap-4">
+                <div className="flex gap-4">
                   {/* 1. JSON 字符串 */}
-                  <div>
+                  <div className="flex-1">
                     <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
                       JSON
                     </h4>
@@ -219,7 +219,7 @@ export default function Home() {
                   </div>
 
                   {/* 2. HTML 字符串 */}
-                  <div>
+                  <div className="flex-1">
                     <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
                       HTML
                     </h4>
@@ -229,7 +229,7 @@ export default function Home() {
                   </div>
 
                   {/* 3. HTML 渲染效果 */}
-                  <div>
+                  <div style={{ width: imageWidth }}>
                     <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
                       {block.block_name}
                     </h4>
