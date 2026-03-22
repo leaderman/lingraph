@@ -90,6 +90,7 @@ export default function Home() {
                 type="number"
                 value={titleFontSize}
                 onChange={(e) => setTitleFontSize(Number(e.target.value))}
+                onFocus={(e) => e.target.setSelectionRange(0, 0)}
                 className="w-24"
               />
             </div>
@@ -99,6 +100,7 @@ export default function Home() {
                 type="number"
                 value={textFontSize}
                 onChange={(e) => setTextFontSize(Number(e.target.value))}
+                onFocus={(e) => e.target.setSelectionRange(0, 0)}
                 className="w-24"
               />
             </div>
