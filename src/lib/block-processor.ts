@@ -7,8 +7,9 @@ interface BlockConfig {
 }
 
 function page(block: any, config: BlockConfig) {
-  const content = block.json.page?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${config.titleFontSize}px; font-weight:700;">${content || ''}</div>`;
+  const elements = block.json.page?.elements || [];
+  const content = elements.map((el: any) => el.text_run?.content || '').join('');
+  block.html = `<div style="font-size:${config.titleFontSize}px; font-weight:700;">${content}</div>`;
 }
 
 function text(block: any, config: BlockConfig) {
