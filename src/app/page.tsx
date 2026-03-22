@@ -36,22 +36,34 @@ export default function Home() {
   useEffect(() => {
     if (!shouldMeasure || blocks.length === 0) return;
     
-    const newBlocks = blocks.map((block, index) => {
-      const el = blockRefs.current[index];
-      const width = el?.clientWidth || 0;
-      const height = el?.clientHeight || 0;
-      return {
-        ...block,
-        json: {
-          ...block.json,
-          block_width: width,
-          block_height: height
-        }
-      };
+    // 等待所有图片加载完成
+    const images = document.querySelectorAll('img');
+    const imagePromises = Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise<void>(resolve => {
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
+      });
     });
     
-    setBlocks(newBlocks);
-    setShouldMeasure(false);
+    Promise.all(imagePromises).then(() => {
+      const newBlocks = blocks.map((block, index) => {
+        const el = blockRefs.current[index];
+        const width = el?.clientWidth || 0;
+        const height = el?.clientHeight || 0;
+        return {
+          ...block,
+          json: {
+            ...block.json,
+            block_width: width,
+            block_height: height
+          }
+        };
+      });
+      
+      setBlocks(newBlocks);
+      setShouldMeasure(false);
+    });
   }, [shouldMeasure, blocks]);
 
   useEffect(() => {
