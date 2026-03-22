@@ -66,6 +66,8 @@ export default function Home() {
     });
   }, [shouldMeasure, blocks]);
 
+  function createImages() {}
+
   useEffect(() => {
     requestAnimationFrame(() => {
       hljs.highlightAll();
