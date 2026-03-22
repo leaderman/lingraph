@@ -16,6 +16,21 @@ function text(block: any, config: BlockConfig) {
   block.html = `<div style="font-size:${config.textFontSize}px;">${content || ''}</div>`;
 }
 
+function heading1(block: any, config: BlockConfig) {
+  const content = block.json.heading1?.elements?.[0]?.text_run?.content;
+  block.html = `<div style="font-size:${config.heading1FontSize}px; font-weight:600;">${content || ''}</div>`;
+}
+
+function heading2(block: any, config: BlockConfig) {
+  const content = block.json.heading2?.elements?.[0]?.text_run?.content;
+  block.html = `<div style="font-size:${config.heading2FontSize}px; font-weight:600;">${content || ''}</div>`;
+}
+
+function heading3(block: any, config: BlockConfig) {
+  const content = block.json.heading3?.elements?.[0]?.text_run?.content;
+  block.html = `<div style="font-size:${config.heading3FontSize}px; font-weight:600;">${content || ''}</div>`;
+}
+
 export function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.json.block_type;
 
@@ -27,10 +42,13 @@ export function processBlockByType(block: any, config: BlockConfig) {
       text(block, config);
       break;
     case 3:
+      heading1(block, config);
       break;
     case 4:
+      heading2(block, config);
       break;
     case 5:
+      heading3(block, config);
       break;
     case 6:
       break;
