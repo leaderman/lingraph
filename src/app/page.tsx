@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ChevronDown, ChevronUp, Loader2, Settings } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,13 +18,7 @@ export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
   const [blocks, setBlocks] = useState<any[]>([]);
-  const [images, setImages] = useState<any[]>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [blocksOpen, setBlocksOpen] = useState(false);
-  const [imagesOpen, setImagesOpen] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [imageWidth, setImageWidth] = useState(1080);
-  const [imageHeight, setImageHeight] = useState(1440);
   const [titleFontSize, setTitleFontSize] = useState(28);
   const [heading1FontSize, setHeading1FontSize] = useState(24);
   const [heading2FontSize, setHeading2FontSize] = useState(22);
@@ -51,9 +45,6 @@ export default function Home() {
   };
 
   const handleLayout = async () => {
-    setIsLoading(true);
-    
-    // 获取文档块
     const response = await fetch('/api/parse', {
       method: 'POST',
       headers: {
@@ -72,9 +63,6 @@ export default function Home() {
     }));
     
     setBlocks(blocks);
-    setImages([]);
-    
-    setIsLoading(false);
   };
 
   return (
@@ -104,84 +92,50 @@ export default function Home() {
             <DialogTitle>设置</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
-            <div>
-              <h4 className="mb-3 text-sm font-medium text-slate-600 dark:text-slate-400">字体大小</h4>
-              <div className="space-y-3">
-                <div className="flex items-center gap-4">
-                  <Label className="flex-1">文档标题</Label>
-                  <Input
-                    type="number"
-                    value={titleFontSize}
-                    onChange={(e) => setTitleFontSize(Number(e.target.value))}
-                    className="w-24"
-                  />
-                </div>
-                <div className="flex items-center gap-4">
-                  <Label className="flex-1">一级标题</Label>
-                  <Input
-                    type="number"
-                    value={heading1FontSize}
-                    onChange={(e) => setHeading1FontSize(Number(e.target.value))}
-                    className="w-24"
-                  />
-                </div>
-                <div className="flex items-center gap-4">
-                  <Label className="flex-1">二级标题</Label>
-                  <Input
-                    type="number"
-                    value={heading2FontSize}
-                    onChange={(e) => setHeading2FontSize(Number(e.target.value))}
-                    className="w-24"
-                  />
-                </div>
-                <div className="flex items-center gap-4">
-                  <Label className="flex-1">三级标题</Label>
-                  <Input
-                    type="number"
-                    value={heading3FontSize}
-                    onChange={(e) => setHeading3FontSize(Number(e.target.value))}
-                    className="w-24"
-                  />
-                </div>
-                <div className="flex items-center gap-4">
-                  <Label className="flex-1">文本</Label>
-                  <Input
-                    type="number"
-                    value={textFontSize}
-                    onChange={(e) => setTextFontSize(Number(e.target.value))}
-                    className="w-24"
-                  />
-                </div>
-              </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">文档标题字体大小</Label>
+              <Input
+                type="number"
+                value={titleFontSize}
+                onChange={(e) => setTitleFontSize(Number(e.target.value))}
+                className="w-24"
+              />
             </div>
-            <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
-              <h4 className="mb-3 text-sm font-medium text-slate-600 dark:text-slate-400">图片尺寸 (3:4)</h4>
-              <div className="flex items-center gap-4">
-                <Label className="flex-1">宽度</Label>
-                <Input
-                  type="number"
-                  value={imageWidth}
-                  onChange={(e) => {
-                    const width = Number(e.target.value);
-                    setImageWidth(width);
-                    setImageHeight(Math.round(width * 4 / 3));
-                  }}
-                  className="w-24"
-                />
-              </div>
-              <div className="mt-3 flex items-center gap-4">
-                <Label className="flex-1">高度</Label>
-                <Input
-                  type="number"
-                  value={imageHeight}
-                  onChange={(e) => {
-                    const height = Number(e.target.value);
-                    setImageHeight(height);
-                    setImageWidth(Math.round(height * 3 / 4));
-                  }}
-                  className="w-24"
-                />
-              </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">一级标题字体大小</Label>
+              <Input
+                type="number"
+                value={heading1FontSize}
+                onChange={(e) => setHeading1FontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">二级标题字体大小</Label>
+              <Input
+                type="number"
+                value={heading2FontSize}
+                onChange={(e) => setHeading2FontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">三级标题字体大小</Label>
+              <Input
+                type="number"
+                value={heading3FontSize}
+                onChange={(e) => setHeading3FontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">文本字体大小</Label>
+              <Input
+                type="number"
+                value={textFontSize}
+                onChange={(e) => setTextFontSize(Number(e.target.value))}
+                className="w-24"
+              />
             </div>
           </div>
         </DialogContent>
@@ -199,97 +153,55 @@ export default function Home() {
             className="flex-1"
             value={url || ''}
             onChange={(e) => setUrl(e.target.value)}
-            disabled={isLoading}
           />
-          <Button onClick={handleLayout} disabled={isLoading} className="min-w-[120px]">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                排版中...
-              </>
-            ) : (
-              '一键排版'
-            )}
-          </Button>
+          <Button onClick={handleLayout}>一键排版</Button>
         </div>
 
-        {/* 文档块区域 */}
+        {/* 文档块展示区域 */}
         {blocks.length > 0 && (
-          <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700">
-            <button
-              onClick={() => setBlocksOpen(!blocksOpen)}
-              className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
-            >
-              <span>文档块</span>
-              {blocksOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-            </button>
-            {blocksOpen && (
-              <div className="space-y-4 border-t border-slate-200 p-4 dark:border-slate-700">
-                {blocks.map((block, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
-                  >
-                    <div className="grid grid-cols-3 gap-4">
-                      {/* 1. JSON 字符串 */}
-                      <div>
-                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                          JSON
-                        </h4>
-                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                          {JSON.stringify(block.json, null, 2)}
-                        </pre>
-                      </div>
-
-                      {/* 2. HTML 字符串 */}
-                      <div>
-                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                          HTML
-                        </h4>
-                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                          {block.html}
-                        </pre>
-                      </div>
-
-                      {/* 3. HTML 渲染效果 */}
-                      <div>
-                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                          {block.block_name}
-                        </h4>
-                        <div
-                          className="rounded border border-slate-200 p-3 dark:border-slate-700"
-                          dangerouslySetInnerHTML={{ __html: block.html }}
-                        />
-                      </div>
-                    </div>
+          <div className="mt-6 space-y-4">
+            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+              文档块 ({blocks.length})
+            </h3>
+            {blocks.map((block, index) => (
+              <div
+                key={index}
+                className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+              >
+                <div className="grid grid-cols-3 gap-4">
+                  {/* 1. JSON 字符串 */}
+                  <div>
+                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                      JSON
+                    </h4>
+                    <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                      {JSON.stringify(block.json, null, 2)}
+                    </pre>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
 
-        {/* 图片区域 */}
-        {blocks.length > 0 && (
-          <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700">
-            <button
-              onClick={() => setImagesOpen(!imagesOpen)}
-              className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
-            >
-              <span>图片</span>
-              {imagesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-            </button>
-            {imagesOpen && images.length > 0 && (
-              <div className="border-t border-slate-200 p-4 dark:border-slate-700">
-                <div className="grid grid-cols-4 gap-4">
-                  {images.map((image, index) => (
-                    <div key={index} className="rounded border border-slate-200 p-2">
-                      <img src={image.url} alt="" className="h-auto w-full" />
-                    </div>
-                  ))}
+                  {/* 2. HTML 字符串 */}
+                  <div>
+                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                      HTML
+                    </h4>
+                    <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                      {block.html}
+                    </pre>
+                  </div>
+
+                  {/* 3. HTML 渲染效果 */}
+                  <div>
+                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                      {block.block_name}
+                    </h4>
+                    <div
+                      className="rounded border border-slate-200 p-3 dark:border-slate-700"
+                      dangerouslySetInnerHTML={{ __html: block.html }}
+                    />
+                  </div>
                 </div>
               </div>
-            )}
+            ))}
           </div>
         )}
       </main>
