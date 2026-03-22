@@ -64,10 +64,6 @@ function code(block: any, config: BlockConfig) {
 
 async function image(block: any, config: BlockConfig) {
   const token = block.json.image?.token;
-  if (!token) {
-    block.html = '<div>[Image: no token]</div>';
-    return;
-  }
   
   try {
     const response = await fetch(`/api/get_tmp_download_url?token=${token}`);
