@@ -72,7 +72,7 @@ function code(block: any, config: BlockConfig) {
   block.html = `<div><pre><code class="${codeClass}">${codeContent}</code></pre></div>`;
 }
 
-async function image(block: any, config: BlockConfig) {
+function image(block: any, config: BlockConfig) {
   block.block_name = '图片';
   const url = block.json.image?.url;
   block.html = `<div><img src="${url}" /></div>`;
