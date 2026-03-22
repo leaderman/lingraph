@@ -172,7 +172,7 @@ export default function Home() {
                   {/* 1. JSON 字符串 */}
                   <div>
                     <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                      {block.json.block_name || 'JSON'}
+                      JSON
                     </h4>
                     <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
                       {JSON.stringify(block.json, null, 2)}
