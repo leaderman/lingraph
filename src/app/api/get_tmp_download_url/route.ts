@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { larkClient } from '@/lib/lark-client';
 
 export async function GET(request: NextRequest) {
-  console.log('request.url:', request.url);
-  console.log('request.nextUrl:', request.nextUrl.toString());
-  console.log('searchParams:', request.nextUrl.searchParams.toString());
+  const url = request.url || '';
+  const tokenMatch = url.match(/[?&]token=([^&]+)/);
+  const token = tokenMatch ? decodeURIComponent(tokenMatch[1]) : null;
   
-  const token = request.nextUrl.searchParams.get('token');
+  console.log('url:', url);
   console.log('token:', token);
 
   if (!token) {
