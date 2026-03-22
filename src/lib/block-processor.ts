@@ -8,37 +8,44 @@ interface BlockConfig {
 }
 
 function page(block: any, config: BlockConfig) {
+  block.block_name = '文档标题';
   const content = block.json.page?.elements?.[0]?.text_run?.content;
   block.html = `<div style="font-size:${config.titleFontSize}px; font-weight:700;">${content || ''}</div>`;
 }
 
 function text(block: any, config: BlockConfig) {
+  block.block_name = '文本';
   const content = block.json.text?.elements?.[0]?.text_run?.content;
   block.html = `<div style="font-size:${config.textFontSize}px;">${content || ''}</div>`;
 }
 
 function heading1(block: any, config: BlockConfig) {
+  block.block_name = '一级标题';
   const content = block.json.heading1?.elements?.[0]?.text_run?.content;
   block.html = `<div style="font-size:${config.heading1FontSize}px; font-weight:600;">${content || ''}</div>`;
 }
 
 function heading2(block: any, config: BlockConfig) {
+  block.block_name = '二级标题';
   const content = block.json.heading2?.elements?.[0]?.text_run?.content;
   block.html = `<div style="font-size:${config.heading2FontSize}px; font-weight:600;">${content || ''}</div>`;
 }
 
 function heading3(block: any, config: BlockConfig) {
+  block.block_name = '三级标题';
   const content = block.json.heading3?.elements?.[0]?.text_run?.content;
   block.html = `<div style="font-size:${config.heading3FontSize}px; font-weight:600;">${content || ''}</div>`;
 }
 
 function bullet(block: any, config: BlockConfig) {
+  block.block_name = '无序列表';
   const elements = block.json.bullet?.elements || [];
   const content = elements.map((el: any) => el.text_run?.content || '').join('');
   block.html = `<div style="font-size:${config.textFontSize}px;"><ul style="list-style-type:disc; padding-left:20px;"><li>${content}</li></ul></div>`;
 }
 
 function ordered(block: any, config: BlockConfig) {
+  block.block_name = '有序列表';
   const elements = block.json.ordered?.elements || [];
   const content = elements.map((el: any) => el.text_run?.content || '').join('');
   const sequence = block.json.ordered?.style?.sequence;
@@ -51,6 +58,7 @@ function ordered(block: any, config: BlockConfig) {
 }
 
 function code(block: any, config: BlockConfig) {
+  block.block_name = '代码块';
   const codeContent = block.json.code?.elements?.[0]?.text_run?.content || '';
   const language = block.json.code?.style?.language;
   let codeClass = 'language-plaintext';
@@ -63,6 +71,7 @@ function code(block: any, config: BlockConfig) {
 }
 
 async function image(block: any, config: BlockConfig) {
+  block.block_name = '图片';
   const fileToken = block.json.image?.token;
   const response = await fetch(`/api/get_tmp_download_url?fileToken=${fileToken}`);
   const result = await response.json();
