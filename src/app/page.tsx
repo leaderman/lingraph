@@ -204,7 +204,7 @@ export default function Home() {
             value={url || ''}
             onChange={(e) => setUrl(e.target.value)}
           />
-          <Button onClick={handleLayout} disabled={loading}>
+          <Button onClick={handleLayout} disabled={loading} className="w-28 justify-center">
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
