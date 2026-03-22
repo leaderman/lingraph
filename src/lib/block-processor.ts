@@ -107,7 +107,7 @@ export async function processBlockByType(block: any, config: BlockConfig) {
       code(block, config);
       break;
     case 27:
-      await image(block, config);
+      image(block, config);
       break;
     default:
       break;
