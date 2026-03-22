@@ -278,11 +278,11 @@ export default function Home() {
                     </div>
 
                     {/* 3. HTML 渲染效果 */}
-                    <div style={{ width: imageWidth }}>
+                    <div>
                       <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
                         {block.block_name}
                       </h4>
-                      <div className="rounded border border-slate-200 p-3 dark:border-slate-700">
+                      <div className="rounded border border-slate-200 p-3 dark:border-slate-700" style={{ width: imageWidth }}>
                         <div
                           ref={(el) => { blockRefs.current[index] = el?.firstElementChild as HTMLDivElement; }}
                           dangerouslySetInnerHTML={{ __html: block.html }}
