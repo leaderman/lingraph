@@ -8,6 +8,11 @@ function page(block: any, config: BlockConfig) {
   block.html = `<div style="font-size:${config.titleFontSize}px; font-weight:700;">${content || ''}</div>`;
 }
 
+function text(block: any, config: BlockConfig) {
+  const content = block.json.text?.elements?.[0]?.text_run?.content;
+  block.html = `<div style="font-size:${config.textFontSize}px;">${content || ''}</div>`;
+}
+
 export function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.json.block_type;
 
@@ -16,6 +21,7 @@ export function processBlockByType(block: any, config: BlockConfig) {
       page(block, config);
       break;
     case 2:
+      text(block, config);
       break;
     case 3:
       break;
