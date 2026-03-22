@@ -87,7 +87,8 @@ export default function Home() {
             <div className="flex items-center gap-4">
               <Label className="flex-1">文档标题字体大小</Label>
               <Input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 value={titleFontSize}
                 onChange={(e) => setTitleFontSize(Number(e.target.value))}
                 onFocus={(e) => e.target.setSelectionRange(0, 0)}
@@ -97,7 +98,8 @@ export default function Home() {
             <div className="flex items-center gap-4">
               <Label className="flex-1">文本字体大小</Label>
               <Input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 value={textFontSize}
                 onChange={(e) => setTextFontSize(Number(e.target.value))}
                 onFocus={(e) => e.target.setSelectionRange(0, 0)}
