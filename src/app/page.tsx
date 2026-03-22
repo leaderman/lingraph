@@ -99,6 +99,21 @@ export default function Home() {
     setImages(newImages);
   }
 
+  async function downloadAllImages() {
+    const elements = document.querySelectorAll('[data-image-index]');
+    for (let i = 0; i < elements.length; i++) {
+      const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
+        skipFonts: true,
+        pixelRatio: 2,
+      });
+      const link = document.createElement('a');
+      link.download = `image-${i + 1}.png`;
+      link.href = dataUrl;
+      link.click();
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+  }
+
   useEffect(() => {
     requestAnimationFrame(() => {
       hljs.highlightAll();
@@ -365,22 +380,7 @@ export default function Home() {
               ))}
               {images.length > 0 && (
                 <div className="flex justify-center">
-                  <Button
-                    onClick={async () => {
-                      const elements = document.querySelectorAll('[data-image-index]');
-                      for (let i = 0; i < elements.length; i++) {
-                        const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
-                        skipFonts: true,
-                        pixelRatio: 2,
-                      });
-                        const link = document.createElement('a');
-                        link.download = `image-${i + 1}.png`;
-                        link.href = dataUrl;
-                        link.click();
-                        await new Promise(resolve => setTimeout(resolve, 200));
-                      }
-                    }}
-                  >
+                  <Button onClick={downloadAllImages}>
                     下载所有图片
                   </Button>
                 </div>
