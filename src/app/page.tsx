@@ -45,10 +45,12 @@ export default function Home() {
     });
     const result = await response.json();
     
-    const blocks = result.data || [];
+    const rawBlocks = result.data || [];
     const config = { titleFontSize };
-    blocks.forEach((block: any) => {
+    const blocks = rawBlocks.map((json: any) => {
+      const block = { json, html: '' };
       processBlockByType(block, config);
+      return block;
     });
     
     setBlocks(blocks);
@@ -128,7 +130,7 @@ export default function Home() {
                       JSON
                     </h4>
                     <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                      {JSON.stringify(block, null, 2)}
+                      {JSON.stringify(block.json, null, 2)}
                     </pre>
                   </div>
 

@@ -3,12 +3,12 @@ interface BlockConfig {
 }
 
 function page(block: any, config: BlockConfig) {
-  const content = block.page?.elements?.[0]?.text_run?.content;
+  const content = block.json.page?.elements?.[0]?.text_run?.content;
   block.html = `<div style="font-size:${config.titleFontSize}px; font-weight:700;">${content || ''}</div>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
-  const blockType = block.block_type;
+  const blockType = block.json.block_type;
 
   switch (blockType) {
     case 1:
