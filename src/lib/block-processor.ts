@@ -1,3 +1,5 @@
+import hljs from 'highlight.js';
+
 interface BlockConfig {
   titleFontSize: number;
   heading1FontSize: number;
@@ -63,13 +65,15 @@ function code(block: any, config: BlockConfig) {
   block.block_name = '代码块';
   const codeContent = block.json.code?.elements?.[0]?.text_run?.content || '';
   const language = block.json.code?.style?.language;
-  let codeClass = 'language-plaintext';
-  if (language === 7) {
-    codeClass = 'language-bash';
-  } else if (language === 60) {
-    codeClass = 'language-shell';
-  }
-  block.html = `<div><pre><code class="${codeClass}">${codeContent}</code></pre></div>`;
+  
+  let lang = 'plaintext';
+  if (language === 7) lang = 'bash';
+  else if (language === 60) lang = 'shell';
+  
+  // 直接高亮生成 HTML
+  const highlighted = hljs.highlight(codeContent, { language: lang }).value;
+  
+  block.html = `<div><pre><code class="hljs language-${lang}">${highlighted}</code></pre></div>`;
 }
 
 function image(block: any, config: BlockConfig) {
