@@ -100,7 +100,7 @@ export default function Home() {
   }
 
   async function downloadAllImages() {
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').replace('T', '-').slice(0, 19);
+    const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
     const elements = document.querySelectorAll('[data-image-index]');
     for (let i = 0; i < elements.length; i++) {
       const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
