@@ -246,7 +246,7 @@ export default function Home() {
               {blocks.map((block, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                  className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
                 >
                   <div className="flex gap-4">
                     {/* 1. JSON 字符串 */}
