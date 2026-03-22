@@ -34,13 +34,13 @@ function heading3(block: any, config: BlockConfig) {
 function bullet(block: any, config: BlockConfig) {
   const elements = block.json.bullet?.elements || [];
   const content = elements.map((el: any) => el.text_run?.content || '').join('');
-  block.html = `<div><li style="font-size:${config.textFontSize}px;">${content}</li></div>`;
+  block.html = `<ul><li style="font-size:${config.textFontSize}px;">${content}</li></ul>`;
 }
 
 function ordered(block: any, config: BlockConfig) {
   const elements = block.json.ordered?.elements || [];
   const content = elements.map((el: any) => el.text_run?.content || '').join('');
-  block.html = `<div><li style="font-size:${config.textFontSize}px;">${content}</li></div>`;
+  block.html = `<ol><li style="font-size:${config.textFontSize}px;">${content}</li></ol>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
