@@ -63,16 +63,16 @@ export default function Home() {
       
       setBlocks(newBlocks);
       setShouldMeasure(false);
-      createImages();
+      createImages(newBlocks);
     });
   }, [shouldMeasure, blocks]);
 
-  function createImages() {
+  function createImages(blocksToProcess: any[]) {
     const newImages: any[] = [];
     let currentImage: any = null;
     let currentHeight = 0;
 
-    for (const block of blocks) {
+    for (const block of blocksToProcess) {
       const blockHeight = block.json?.block_height || 0;
 
       if (currentImage === null) {
