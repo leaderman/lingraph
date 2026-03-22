@@ -24,6 +24,8 @@ export default function Home() {
   const [heading2FontSize, setHeading2FontSize] = useState(22);
   const [heading3FontSize, setHeading3FontSize] = useState(20);
   const [textFontSize, setTextFontSize] = useState(14);
+  const [imageWidth, setImageWidth] = useState(1080);
+  const [imageHeight, setImageHeight] = useState(1440);
 
   useEffect(() => {
     hljs.highlightAll();
@@ -55,7 +57,7 @@ export default function Home() {
     const result = await response.json();
     
     const rawBlocks = result.data || [];
-    const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1 };
+    const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1, imageWidth, imageHeight };
     const blocks = await Promise.all(rawBlocks.map(async (json: any) => {
       const block = { json, html: '' };
       await processBlockByType(block, config);
@@ -134,6 +136,24 @@ export default function Home() {
                 type="number"
                 value={textFontSize}
                 onChange={(e) => setTextFontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">图片宽度</Label>
+              <Input
+                type="number"
+                value={imageWidth}
+                onChange={(e) => setImageWidth(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">图片高度</Label>
+              <Input
+                type="number"
+                value={imageHeight}
+                onChange={(e) => setImageHeight(Number(e.target.value))}
                 className="w-24"
               />
             </div>

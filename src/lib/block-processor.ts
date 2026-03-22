@@ -5,6 +5,8 @@ interface BlockConfig {
   heading3FontSize: number;
   textFontSize: number;
   sequence: number;
+  imageWidth: number;
+  imageHeight: number;
 }
 
 function page(block: any, config: BlockConfig) {
