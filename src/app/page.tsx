@@ -171,7 +171,7 @@ export default function Home() {
               onClick={() => setBlocksOpen(!blocksOpen)}
               className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              <span>第一步：文档块 ({blocks.length})</span>
+              <span>文档块 ({blocks.length})</span>
               {blocksOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
             {blocksOpen && (
@@ -227,7 +227,7 @@ export default function Home() {
               onClick={() => setImagesOpen(!imagesOpen)}
               className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              <span>第二步：图片 ({images.length})</span>
+              <span>图片 ({images.length})</span>
               {imagesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
             {imagesOpen && (
