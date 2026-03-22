@@ -82,14 +82,15 @@ export default function Home() {
       
       for (const block of blocks) {
         if (currentImage === null) {
-          currentImage = { html: '<div></div>' };
+          currentImage = { children: [] };
           newImages.push(currentImage);
-        } else {
-          currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
         }
+        currentImage.children.push(block.html);
       }
       
-      setImages(newImages);
+      setImages(newImages.map(img => ({
+        html: `<div>${img.children.join('')}</div>`
+      })));
     } finally {
       setLoading(false);
     }
