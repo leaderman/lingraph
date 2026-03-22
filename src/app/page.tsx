@@ -19,6 +19,9 @@ export default function Home() {
   const [blocks, setBlocks] = useState<any[]>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [titleFontSize, setTitleFontSize] = useState(28);
+  const [heading1FontSize, setHeading1FontSize] = useState(24);
+  const [heading2FontSize, setHeading2FontSize] = useState(22);
+  const [heading3FontSize, setHeading3FontSize] = useState(20);
   const [textFontSize, setTextFontSize] = useState(14);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ export default function Home() {
     const result = await response.json();
     
     const rawBlocks = result.data || [];
-    const config = { titleFontSize, textFontSize };
+    const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize };
     const blocks = rawBlocks.map((json: any) => {
       const block = { json, html: '' };
       processBlockByType(block, config);
@@ -90,6 +93,33 @@ export default function Home() {
                 type="number"
                 value={titleFontSize}
                 onChange={(e) => setTitleFontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">一级标题字体大小</Label>
+              <Input
+                type="number"
+                value={heading1FontSize}
+                onChange={(e) => setHeading1FontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">二级标题字体大小</Label>
+              <Input
+                type="number"
+                value={heading2FontSize}
+                onChange={(e) => setHeading2FontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">三级标题字体大小</Label>
+              <Input
+                type="number"
+                value={heading3FontSize}
+                onChange={(e) => setHeading3FontSize(Number(e.target.value))}
                 className="w-24"
               />
             </div>

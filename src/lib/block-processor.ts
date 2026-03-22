@@ -1,5 +1,8 @@
 interface BlockConfig {
   titleFontSize: number;
+  heading1FontSize: number;
+  heading2FontSize: number;
+  heading3FontSize: number;
   textFontSize: number;
 }
 
