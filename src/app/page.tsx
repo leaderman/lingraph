@@ -1,5 +1,6 @@
 'use client';
 
+import * as htmlToImage from 'html-to-image';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Settings, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -352,14 +353,32 @@ export default function Home() {
             
             <TabsContent value="images" className="space-y-4">
               {images.map((image, index) => (
-                <div
-                  key={index}
-                  className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
-                >
+                <div key={index} className="space-y-2">
                   <div
-                    className="inline-block rounded border border-slate-200 dark:border-slate-700"
-                    dangerouslySetInnerHTML={{ __html: image.html }}
-                  />
+                    className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                  >
+                    <div
+                      className="inline-block rounded border border-slate-200 dark:border-slate-700"
+                      dangerouslySetInnerHTML={{ __html: image.html }}
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <Button
+                      onClick={async () => {
+                        const elements = document.querySelectorAll('[data-image-index]');
+                        const element = elements[index];
+                        if (element) {
+                          const dataUrl = await htmlToImage.toPng(element as HTMLElement);
+                          const link = document.createElement('a');
+                          link.download = `image-${index + 1}.png`;
+                          link.href = dataUrl;
+                          link.click();
+                        }
+                      }}
+                    >
+                      下载图片
+                    </Button>
+                  </div>
                 </div>
               ))}
             </TabsContent>
