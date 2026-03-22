@@ -192,7 +192,7 @@ export default function Home() {
                   {/* 3. HTML 渲染效果 */}
                   <div>
                     <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                      渲染效果
+                      {block.block_name || '渲染效果'}
                     </h4>
                     <div
                       className="rounded border border-slate-200 p-3 dark:border-slate-700"
