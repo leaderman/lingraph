@@ -33,7 +33,7 @@ export default function Home() {
 
   useEffect(() => {
     hljs.highlightAll();
-  }, [blocks, images]);
+  }, [blocks]);
 
   useEffect(() => {
     fetch('/api/name')
