@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Settings, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,6 +30,27 @@ export default function Home() {
   const [imageHeight, setImageHeight] = useState(1440);
   const [activeTab, setActiveTab] = useState('blocks');
   const [loading, setLoading] = useState(false);
+  const [shouldMeasure, setShouldMeasure] = useState(false);
+  const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!shouldMeasure || blocks.length === 0) return;
+    
+    const newBlocks = blocks.map((block, index) => {
+      const el = blockRefs.current[index];
+      const height = el?.clientHeight || 0;
+      return {
+        ...block,
+        json: {
+          ...block.json,
+          block_height: height
+        }
+      };
+    });
+    
+    setBlocks(newBlocks);
+    setShouldMeasure(false);
+  }, [shouldMeasure, blocks]);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -75,6 +96,7 @@ export default function Home() {
       }));
       
       setBlocks(blocks);
+      setShouldMeasure(true);
     } finally {
       setLoading(false);
     }
@@ -259,6 +281,7 @@ export default function Home() {
                         {block.block_name}
                       </h4>
                       <div
+                        ref={(el) => { blockRefs.current[index] = el?.firstElementChild as HTMLDivElement; }}
                         className="rounded border border-slate-200 p-3 dark:border-slate-700"
                         dangerouslySetInnerHTML={{ __html: block.html }}
                       />
