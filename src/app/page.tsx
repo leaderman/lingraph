@@ -287,8 +287,16 @@ export default function Home() {
                         className="rounded border border-slate-200 p-3 dark:border-slate-700"
                         dangerouslySetInnerHTML={{ __html: block.html }}
                       />
-                      <div className="mt-2 text-xs text-slate-500">
-                        宽度: {block.json?.block_width || 0}px, 高度: {block.json?.block_height || 0}px
+                    </div>
+
+                    {/* 4. 尺寸信息 */}
+                    <div className="w-32">
+                      <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                        尺寸
+                      </h4>
+                      <div className="text-xs text-slate-500">
+                        <div>宽度: {block.json?.block_width || 0}px</div>
+                        <div>高度: {block.json?.block_height || 0}px</div>
                       </div>
                     </div>
                   </div>
