@@ -328,7 +328,7 @@ export default function Home() {
               onClick={() => setImagesOpen(!imagesOpen)}
               className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              <span>图片 ({images.length})</span>
+              <span>图片</span>
               {imagesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
             {imagesOpen && (
