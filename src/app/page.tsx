@@ -195,7 +195,7 @@ export default function Home() {
                       渲染效果
                     </h4>
                     <div
-                      className="max-h-60 overflow-auto rounded border border-slate-200 p-3 dark:border-slate-700"
+                      className="rounded border border-slate-200 p-3 dark:border-slate-700"
                       dangerouslySetInnerHTML={{ __html: block.html }}
                     />
                   </div>
