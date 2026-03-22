@@ -29,8 +29,6 @@ export default function Home() {
   const [textFontSize, setTextFontSize] = useState(14);
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
-  const [paddingX, setPaddingX] = useState(64);
-  const [paddingY, setPaddingY] = useState(80);
   const [activeTab, setActiveTab] = useState('blocks');
   const [loading, setLoading] = useState(false);
   const [shouldMeasure, setShouldMeasure] = useState(false);
@@ -74,27 +72,26 @@ export default function Home() {
     const newImages: any[] = [];
     let currentImage: any = null;
     let currentHeight = 0;
-    const contentMaxHeight = imageHeight - paddingY * 2;
 
     for (const block of blocks) {
       const blockHeight = block.json?.block_height || 0;
 
       if (currentImage === null) {
         currentImage = {
-          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px;"><div style="padding: ${paddingY}px ${paddingX}px;">${block.html}</div></div>`,
+          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px;">${block.html}</div>`,
         };
         currentHeight = blockHeight;
         newImages.push(currentImage);
-      } else if (currentHeight + blockHeight > contentMaxHeight) {
+      } else if (currentHeight + blockHeight > imageHeight) {
         // 超过高度，创建新 Image
         currentImage = {
-          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px;"><div style="padding: ${paddingY}px ${paddingX}px;">${block.html}</div></div>`,
+          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px;">${block.html}</div>`,
         };
         currentHeight = blockHeight;
         newImages.push(currentImage);
       } else {
         // 加入当前 Image
-        currentImage.html = currentImage.html.replace('</div></div>', `${block.html}</div></div>`);
+        currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
         currentHeight += blockHeight;
       }
     }
@@ -266,29 +263,6 @@ export default function Home() {
                       setImageHeight(height);
                       setImageWidth(Math.round(height * 3 / 4));
                     }}
-                    className="w-24"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
-              <h4 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">图片边距</h4>
-              <div className="space-y-3">
-                <div className="flex items-center gap-4">
-                  <Label className="flex-1">左右边距</Label>
-                  <Input
-                    type="number"
-                    value={paddingX}
-                    onChange={(e) => setPaddingX(Number(e.target.value))}
-                    className="w-24"
-                  />
-                </div>
-                <div className="flex items-center gap-4">
-                  <Label className="flex-1">上下边距</Label>
-                  <Input
-                    type="number"
-                    value={paddingY}
-                    onChange={(e) => setPaddingY(Number(e.target.value))}
                     className="w-24"
                   />
                 </div>
