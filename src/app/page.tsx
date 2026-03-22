@@ -29,6 +29,8 @@ export default function Home() {
   const [textFontSize, setTextFontSize] = useState(14);
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
+  const [paddingX, setPaddingX] = useState(64);
+  const [paddingY, setPaddingY] = useState(80);
   const [activeTab, setActiveTab] = useState('blocks');
   const [loading, setLoading] = useState(false);
   const [shouldMeasure, setShouldMeasure] = useState(false);
@@ -263,6 +265,29 @@ export default function Home() {
                       setImageHeight(height);
                       setImageWidth(Math.round(height * 3 / 4));
                     }}
+                    className="w-24"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
+              <h4 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">图片边距</h4>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">左右边距</Label>
+                  <Input
+                    type="number"
+                    value={paddingX}
+                    onChange={(e) => setPaddingX(Number(e.target.value))}
+                    className="w-24"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">上下边距</Label>
+                  <Input
+                    type="number"
+                    value={paddingY}
+                    onChange={(e) => setPaddingY(Number(e.target.value))}
                     className="w-24"
                   />
                 </div>
