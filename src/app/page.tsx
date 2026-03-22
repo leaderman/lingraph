@@ -354,7 +354,6 @@ export default function Home() {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  data-image-index={index}
                   className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
                 >
                   <div
