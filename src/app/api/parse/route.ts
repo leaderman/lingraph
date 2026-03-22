@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as lark from '@larksuiteoapi/node-sdk';
-
-// 全局飞书客户端
-const client = new lark.Client({
-  appId: process.env.APP_ID || '',
-  appSecret: process.env.APP_SECRET || '',
-});
+import { larkClient } from '@/lib/lark-client';
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     // 如果是 wiki 类型，获取真实文档 ID
     if (type === 'wiki') {
-      const res = await client.wiki.v2.space.getNode({
+      const res = await larkClient.wiki.v2.space.getNode({
         params: {
           token: documentId,
           obj_type: 'wiki',
@@ -39,7 +33,7 @@ export async function POST(request: NextRequest) {
     // 获取文档所有块并转换为 JSON + HTML
     const blocks: any[] = [];
 
-    for await (const page of await client.docx.v1.documentBlock.listWithIterator({
+    for await (const page of await larkClient.docx.v1.documentBlock.listWithIterator({
       path: {
         document_id: documentId,
       },

@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as lark from '@larksuiteoapi/node-sdk';
-
-// 全局飞书客户端
-const client = new lark.Client({
-  appId: process.env.APP_ID || '',
-  appSecret: process.env.APP_SECRET || '',
-});
+import { larkClient } from '@/lib/lark-client';
 
 export async function GET(request: NextRequest) {
   const params = new URL(request.url).searchParams;
@@ -20,7 +14,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const res: any = await client.drive.v1.media.batchGetTmpDownloadUrl({
+    const res: any = await larkClient.drive.v1.media.batchGetTmpDownloadUrl({
       params: {
         file_tokens: [token],
       },
