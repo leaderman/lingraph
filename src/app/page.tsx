@@ -35,7 +35,9 @@ export default function Home() {
 
   useEffect(() => {
     if (activeTab === 'blocks') {
-      hljs.highlightAll();
+      setTimeout(() => {
+        hljs.highlightAll();
+      }, 0);
     }
   }, [activeTab]);
 
