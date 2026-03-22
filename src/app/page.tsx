@@ -75,22 +75,6 @@ export default function Home() {
       }));
       
       setBlocks(blocks);
-      
-      // 处理 images
-      const newImages: any[] = [];
-      let currentImage: any = null;
-      
-      for (const block of blocks) {
-        if (currentImage === null) {
-          currentImage = { children: [] };
-          newImages.push(currentImage);
-        }
-        currentImage.children.push(block.html);
-      }
-      
-      setImages(newImages.map(img => ({
-        html: `<div>${img.children.join('')}</div>`
-      })));
     } finally {
       setLoading(false);
     }
