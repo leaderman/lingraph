@@ -52,8 +52,7 @@ export async function POST(request: NextRequest) {
       // 27 是图片类型
       if (type !== 27) continue;
       
-      const token = block.image?.token;
-      if (!token) continue;
+      const token = block.image.token;
       
       try {
         const res: any = await larkClient.drive.v1.media.batchGetTmpDownloadUrl({
