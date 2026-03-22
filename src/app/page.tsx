@@ -80,14 +80,14 @@ export default function Home() {
 
       if (currentImage === null) {
         currentImage = {
-          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px;">${block.html}</div>`,
+          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px;">${block.html}</div>`,
         };
         currentHeight = blockHeight;
         newImages.push(currentImage);
       } else if (currentHeight + blockHeight > imageHeight) {
         // 超过高度，创建新 Image
         currentImage = {
-          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px;">${block.html}</div>`,
+          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px;">${block.html}</div>`,
         };
         currentHeight = blockHeight;
         newImages.push(currentImage);
