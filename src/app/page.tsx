@@ -354,9 +354,13 @@ export default function Home() {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
-                  dangerouslySetInnerHTML={{ __html: image.html }}
-                />
+                  className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                >
+                  <div
+                    className="flex justify-center rounded border border-slate-200 p-3 dark:border-slate-700"
+                    dangerouslySetInnerHTML={{ __html: image.html }}
+                  />
+                </div>
               ))}
             </TabsContent>
           </Tabs>
