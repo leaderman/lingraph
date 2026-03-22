@@ -291,9 +291,6 @@ export default function Home() {
                   className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
                 >
                   <div style={{ width: imageWidth }}>
-                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                      图片 {index + 1}
-                    </h4>
                     <div
                       className="rounded border border-slate-200 p-3 dark:border-slate-700"
                       dangerouslySetInnerHTML={{ __html: image.html }}
