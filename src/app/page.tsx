@@ -354,10 +354,10 @@ export default function Home() {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                  className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
                 >
                   <div
-                    className="rounded border border-slate-200 p-3 dark:border-slate-700"
+                    className="inline-block rounded border border-slate-200 p-3 dark:border-slate-700"
                     dangerouslySetInnerHTML={{ __html: image.html }}
                   />
                 </div>
