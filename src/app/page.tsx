@@ -222,7 +222,6 @@ export default function Home() {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList>
               <TabsTrigger value="blocks">文档块 ({blocks.length})</TabsTrigger>
-              <TabsTrigger value="container">容器</TabsTrigger>
               <TabsTrigger value="images">图片</TabsTrigger>
             </TabsList>
             
@@ -266,10 +265,6 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-            </TabsContent>
-            
-            <TabsContent value="container">
-              {/* 容器内容待添加 */}
             </TabsContent>
             
             <TabsContent value="images">
