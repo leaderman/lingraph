@@ -54,17 +54,13 @@ export async function POST(request: NextRequest) {
       
       const token = block.image.token;
       
-      try {
-        const res: any = await larkClient.drive.v1.media.batchGetTmpDownloadUrl({
-          params: {
-            file_tokens: [token],
-          },
-        });
-        
-        block.image.url = res.data.tmp_download_urls[0].tmp_download_url;
-      } catch (error) {
-        console.error('获取图片下载链接失败:', token, error);
-      }
+      const res: any = await larkClient.drive.v1.media.batchGetTmpDownloadUrl({
+        params: {
+          file_tokens: [token],
+        },
+      });
+      
+      block.image.url = res.data.tmp_download_urls[0].tmp_download_url;
     }
 
     return NextResponse.json({
