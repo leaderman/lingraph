@@ -45,6 +45,33 @@ export async function POST(request: NextRequest) {
 
     console.log('文档块总数:', blocks.length);
 
+    // 处理图片 block，获取临时下载 URL
+    for (const block of blocks) {
+      const type = block.block_type;
+      
+      // 27 是图片类型
+      if (type !== 27) continue;
+      
+      const token = block.image?.token;
+      if (!token) continue;
+      
+      try {
+        const res: any = await larkClient.drive.v1.media.batchGetTmpDownloadUrl({
+          params: {
+            file_tokens: [token],
+          },
+        });
+        
+        const tmpDownloadUrl = res.data?.tmp_download_urls?.[0]?.tmp_download_url || '';
+        
+        if (tmpDownloadUrl) {
+          block.image.url = tmpDownloadUrl;
+        }
+      } catch (error) {
+        console.error('获取图片下载链接失败:', token, error);
+      }
+    }
+
     return NextResponse.json({
       code: 200,
       msg: 'success',
