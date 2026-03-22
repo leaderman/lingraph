@@ -12,8 +12,9 @@ function page(block: any, config: BlockConfig) {
 }
 
 function text(block: any, config: BlockConfig) {
-  const content = block.json.text?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${config.textFontSize}px;">${content || ''}</div>`;
+  const elements = block.json.text?.elements || [];
+  const content = elements.map((e: any) => e.text_run?.content || '').join('');
+  block.html = `<div style="font-size:${config.textFontSize}px;">${content}</div>`;
 }
 
 function heading1(block: any, config: BlockConfig) {
