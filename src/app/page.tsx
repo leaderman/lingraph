@@ -18,7 +18,7 @@ export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
   const [blocks, setBlocks] = useState<any[]>([]);
-  const [images, setImages] = useState<string[][]>([]);
+  const [images, setImages] = useState<any[]>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [blocksOpen, setBlocksOpen] = useState(false);
   const [imagesOpen, setImagesOpen] = useState(true);
@@ -270,7 +270,7 @@ export default function Home() {
         )}
 
         {/* 图片区域 */}
-        {(blocks.length > 0 || images.length > 0) && (
+        {blocks.length > 0 && (
           <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setImagesOpen(!imagesOpen)}
@@ -279,21 +279,15 @@ export default function Home() {
               <span>图片</span>
               {imagesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
-            {imagesOpen && (
-              <div className="space-y-4 border-t border-slate-200 p-4 dark:border-slate-700">
-                {images.map((pageBlocks, index) => (
-                  <div key={index} className="flex justify-center">
-                    <div
-                      className="overflow-hidden rounded border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800"
-                      style={{ width: imageWidth, height: imageHeight, maxWidth: '100%' }}
-                    >
-                      <div 
-                        className="p-4"
-                        dangerouslySetInnerHTML={{ __html: pageBlocks.join('') }}
-                      />
+            {imagesOpen && images.length > 0 && (
+              <div className="border-t border-slate-200 p-4 dark:border-slate-700">
+                <div className="grid grid-cols-4 gap-4">
+                  {images.map((image, index) => (
+                    <div key={index} className="rounded border border-slate-200 p-2">
+                      <img src={image.url} alt="" className="h-auto w-full" />
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             )}
           </div>
