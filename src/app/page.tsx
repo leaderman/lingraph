@@ -74,7 +74,7 @@ export default function Home() {
     setBlocks(blocks);
     
     // 分页生成图片
-    const imagesData: string[][] = [];
+    const images: string[][] = [];
     let currentPageBlocks: string[] = [];
     
     // 创建隐藏的测量容器
@@ -111,20 +111,20 @@ export default function Home() {
         currentPageBlocks.push(block.html);
       } else {
         // 溢出，保存当前页面，创建新页面
-        imagesData.push([...currentPageBlocks]);
+        images.push([...currentPageBlocks]);
         currentPageBlocks = [block.html];
       }
     }
     
     // 保存最后一个页面
     if (currentPageBlocks.length > 0) {
-      imagesData.push(currentPageBlocks);
+      images.push(currentPageBlocks);
     }
     
     // 清理测量容器
     document.body.removeChild(measureContainer);
     
-    setImages(imagesData);
+    setImages(images);
     
     setIsLoading(false);
   };
