@@ -75,24 +75,18 @@ export default function Home() {
     let currentImage: any = null;
     let currentHeight = 0;
 
+    const createNewImage = (index: number, html: string) => ({
+      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
+    });
+
     for (const block of blocks) {
       const blockHeight = block.json?.block_height || 0;
 
-      if (currentImage === null) {
-        currentImage = {
-          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${block.html}</div>`,
-        };
-        currentHeight = blockHeight;
-        newImages.push(currentImage);
-      } else if (currentHeight + blockHeight > imageHeight) {
-        // 超过高度，创建新 Image
-        currentImage = {
-          html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${block.html}</div>`,
-        };
+      if (currentImage === null || currentHeight + blockHeight > imageHeight) {
+        currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight;
         newImages.push(currentImage);
       } else {
-        // 加入当前 Image
         currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
         currentHeight += blockHeight;
       }
