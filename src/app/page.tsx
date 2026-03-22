@@ -18,7 +18,7 @@ export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
   const [blocks, setBlocks] = useState<any[]>([]);
-  const [images, setImages] = useState<any[]>([]);
+  const [images, setImages] = useState<string[][]>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [blocksOpen, setBlocksOpen] = useState(false);
   const [imagesOpen, setImagesOpen] = useState(true);
@@ -72,7 +72,59 @@ export default function Home() {
     }));
     
     setBlocks(blocks);
-    setImages([]);
+    
+    // 分页生成图片
+    const imagesData: string[][] = [];
+    let currentPageBlocks: string[] = [];
+    
+    // 创建隐藏的测量容器
+    const measureContainer = document.createElement('div');
+    measureContainer.style.position = 'absolute';
+    measureContainer.style.visibility = 'hidden';
+    measureContainer.style.width = `${imageWidth}px`;
+    measureContainer.style.overflow = 'hidden';
+    document.body.appendChild(measureContainer);
+    
+    for (const block of blocks) {
+      // 测量当前 block 的高度
+      const testContainer = document.createElement('div');
+      testContainer.innerHTML = block.html;
+      testContainer.style.width = '100%';
+      measureContainer.appendChild(testContainer);
+      const blockHeight = testContainer.offsetHeight;
+      measureContainer.removeChild(testContainer);
+      
+      // 测试将当前 block 加入当前页面后的高度
+      const testPageContainer = document.createElement('div');
+      testPageContainer.style.width = `${imageWidth}px`;
+      testPageContainer.style.boxSizing = 'border-box';
+      testPageContainer.innerHTML = currentPageBlocks.join('') + block.html;
+      measureContainer.appendChild(testPageContainer);
+      const totalHeight = testPageContainer.offsetHeight;
+      measureContainer.removeChild(testPageContainer);
+      
+      // 如果当前页面为空，直接加入
+      if (currentPageBlocks.length === 0) {
+        currentPageBlocks.push(block.html);
+      } else if (totalHeight <= imageHeight) {
+        // 未溢出，继续加入当前页面
+        currentPageBlocks.push(block.html);
+      } else {
+        // 溢出，保存当前页面，创建新页面
+        imagesData.push([...currentPageBlocks]);
+        currentPageBlocks = [block.html];
+      }
+    }
+    
+    // 保存最后一个页面
+    if (currentPageBlocks.length > 0) {
+      imagesData.push(currentPageBlocks);
+    }
+    
+    // 清理测量容器
+    document.body.removeChild(measureContainer);
+    
+    setImages(imagesData);
     
     setIsLoading(false);
   };
@@ -270,24 +322,31 @@ export default function Home() {
         )}
 
         {/* 图片区域 */}
-        {blocks.length > 0 && (
+        {(blocks.length > 0 || images.length > 0) && (
           <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setImagesOpen(!imagesOpen)}
               className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-slate-800 hover:bg-slate-50 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              <span>图片</span>
+              <span>图片 ({images.length})</span>
               {imagesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
-            {imagesOpen && images.length > 0 && (
-              <div className="border-t border-slate-200 p-4 dark:border-slate-700">
-                <div className="grid grid-cols-4 gap-4">
-                  {images.map((image, index) => (
-                    <div key={index} className="rounded border border-slate-200 p-2">
-                      <img src={image.url} alt="" className="h-auto w-full" />
+            {imagesOpen && (
+              <div className="space-y-4 border-t border-slate-200 p-4 dark:border-slate-700">
+                {images.map((pageBlocks, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <span className="text-sm font-medium text-slate-500">{index + 1}</span>
+                    <div
+                      className="overflow-hidden rounded border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800"
+                      style={{ width: imageWidth, height: imageHeight, maxWidth: '100%' }}
+                    >
+                      <div 
+                        className="p-4"
+                        dangerouslySetInnerHTML={{ __html: pageBlocks.join('') }}
+                      />
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
