@@ -365,7 +365,7 @@ export default function Home() {
                       <div className="rounded border border-slate-200 dark:border-slate-700">
                         <div
                           ref={(el) => { blockRefs.current[index] = el?.firstElementChild as HTMLDivElement; }}
-                          style={{ width: imageWidth }}
+                          style={{ width: imageWidth, padding: `${paddingY}px ${paddingX}px` }}
                           dangerouslySetInnerHTML={{ __html: block.html }}
                         />
                       </div>
