@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { larkClient } from '@/lib/lark-client';
 
 export async function GET(request: NextRequest) {
-  const params = new URL(request.url).searchParams;
-  const token = params.get('token');
+  const token = request.nextUrl.searchParams.get('token');
 
   if (!token) {
     return NextResponse.json({
