@@ -75,6 +75,21 @@ export default function Home() {
       }));
       
       setBlocks(blocks);
+      
+      // 处理 images
+      const newImages: any[] = [];
+      let currentImage: any = null;
+      
+      for (const block of blocks) {
+        if (currentImage === null) {
+          currentImage = { html: '<div></div>' };
+          newImages.push(currentImage);
+        } else {
+          currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
+        }
+      }
+      
+      setImages(newImages);
     } finally {
       setLoading(false);
     }
