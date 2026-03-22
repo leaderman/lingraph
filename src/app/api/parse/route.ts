@@ -45,12 +45,7 @@ export async function POST(request: NextRequest) {
       },
     })) {
       if (page && page.items && Array.isArray(page.items)) {
-        for (const block of page.items) {
-          blocks.push({
-            json: block,
-            html: '',
-          });
-        }
+        blocks.push(...page.items);
       }
     }
 

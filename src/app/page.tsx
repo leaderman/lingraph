@@ -48,7 +48,7 @@ export default function Home() {
     const blocks = result.data || [];
     const config = { titleFontSize };
     blocks.forEach((block: any) => {
-      processBlockByType(block.json, config);
+      processBlockByType(block, config);
     });
     
     setBlocks(blocks);
@@ -128,7 +128,7 @@ export default function Home() {
                       JSON
                     </h4>
                     <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                      {JSON.stringify(block.json, null, 2)}
+                      {JSON.stringify(block, null, 2)}
                     </pre>
                   </div>
 
