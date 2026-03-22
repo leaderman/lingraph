@@ -199,9 +199,25 @@ export default function Home() {
             {blocksOpen && (
               <div className="border-t border-slate-200 p-4 dark:border-slate-700">
                 {blocksLoading ? (
-                  <div className="flex items-center justify-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
-                    <span className="ml-2 text-slate-500">正在生成文档块...</span>
+                  <div className="space-y-4">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800">
+                        <div className="grid grid-cols-3 gap-4">
+                          <div className="space-y-2">
+                            <div className="h-3 w-12 rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
+                            <div className="h-24 rounded bg-slate-100 animate-pulse dark:bg-slate-800" />
+                          </div>
+                          <div className="space-y-2">
+                            <div className="h-3 w-12 rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
+                            <div className="h-24 rounded bg-slate-100 animate-pulse dark:bg-slate-800" />
+                          </div>
+                          <div className="space-y-2">
+                            <div className="h-3 w-20 rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
+                            <div className="h-24 rounded bg-slate-100 animate-pulse dark:bg-slate-800" />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -264,9 +280,10 @@ export default function Home() {
             {imagesOpen && (
               <div className="border-t border-slate-200 p-4 dark:border-slate-700">
                 {imagesLoading ? (
-                  <div className="flex items-center justify-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
-                    <span className="ml-2 text-slate-500">正在生成图片...</span>
+                  <div className="grid grid-cols-4 gap-4">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className="aspect-video rounded-lg border border-slate-200 bg-slate-50 animate-pulse dark:border-slate-700 dark:bg-slate-800" />
+                    ))}
                   </div>
                 ) : images.length === 0 ? (
                   <p className="text-sm text-slate-500">暂无图片</p>
