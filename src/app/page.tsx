@@ -82,14 +82,14 @@ export default function Home() {
         currentImage = {
           html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${block.html}</div>`,
         };
-        currentHeight = blockHeight + paddingY * 2;
+        currentHeight = blockHeight;
         newImages.push(currentImage);
       } else if (currentHeight + blockHeight > imageHeight) {
         // 超过高度，创建新 Image
         currentImage = {
           html: `<div data-image-index="${newImages.length}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${block.html}</div>`,
         };
-        currentHeight = blockHeight + paddingY * 2;
+        currentHeight = blockHeight;
         newImages.push(currentImage);
       } else {
         // 加入当前 Image
