@@ -144,7 +144,11 @@ export default function Home() {
               <Input
                 type="number"
                 value={imageWidth}
-                onChange={(e) => setImageWidth(Number(e.target.value))}
+                onChange={(e) => {
+                  const width = Number(e.target.value);
+                  setImageWidth(width);
+                  setImageHeight(Math.round(width * 4 / 3));
+                }}
                 className="w-24"
               />
             </div>
@@ -153,7 +157,11 @@ export default function Home() {
               <Input
                 type="number"
                 value={imageHeight}
-                onChange={(e) => setImageHeight(Number(e.target.value))}
+                onChange={(e) => {
+                  const height = Number(e.target.value);
+                  setImageHeight(height);
+                  setImageWidth(Math.round(height * 3 / 4));
+                }}
                 className="w-24"
               />
             </div>
