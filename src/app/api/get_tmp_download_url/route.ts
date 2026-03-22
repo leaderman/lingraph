@@ -2,12 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { larkClient } from '@/lib/lark-client';
 
 export async function GET(request: NextRequest) {
-  const url = request.url || '';
-  const tokenMatch = url.match(/[?&]token=([^&]+)/);
-  const token = tokenMatch ? decodeURIComponent(tokenMatch[1]) : null;
-  
-  console.log('url:', url);
-  console.log('token:', token);
+  const { searchParams } = new URL(request.url);
+  const token = searchParams.get('token');
 
   if (!token) {
     return NextResponse.json({
