@@ -239,7 +239,7 @@ export default function Home() {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList>
               <TabsTrigger value="blocks">文档块 ({blocks.length})</TabsTrigger>
-              <TabsTrigger value="images">图片</TabsTrigger>
+              <TabsTrigger value="images">图片 ({images.length})</TabsTrigger>
             </TabsList>
             
             <TabsContent value="blocks" className="space-y-4">
