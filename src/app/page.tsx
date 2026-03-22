@@ -352,33 +352,32 @@ export default function Home() {
             </TabsContent>
             
             <TabsContent value="images" className="space-y-4">
+              <div className="flex justify-center">
+                <Button
+                  onClick={async () => {
+                    const elements = document.querySelectorAll('[data-image-index]');
+                    for (let i = 0; i < elements.length; i++) {
+                      const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement);
+                      const link = document.createElement('a');
+                      link.download = `image-${i + 1}.png`;
+                      link.href = dataUrl;
+                      link.click();
+                      await new Promise(resolve => setTimeout(resolve, 200));
+                    }
+                  }}
+                >
+                  下载所有图片
+                </Button>
+              </div>
               {images.map((image, index) => (
-                <div key={index} className="space-y-2">
+                <div
+                  key={index}
+                  className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                >
                   <div
-                    className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
-                  >
-                    <div
-                      className="inline-block rounded border border-slate-200 dark:border-slate-700"
-                      dangerouslySetInnerHTML={{ __html: image.html }}
-                    />
-                  </div>
-                  <div className="flex justify-center">
-                    <Button
-                      onClick={async () => {
-                        const elements = document.querySelectorAll('[data-image-index]');
-                        const element = elements[index];
-                        if (element) {
-                          const dataUrl = await htmlToImage.toPng(element as HTMLElement);
-                          const link = document.createElement('a');
-                          link.download = `image-${index + 1}.png`;
-                          link.href = dataUrl;
-                          link.click();
-                        }
-                      }}
-                    >
-                      下载图片
-                    </Button>
-                  </div>
+                    className="inline-block rounded border border-slate-200 dark:border-slate-700"
+                    dangerouslySetInnerHTML={{ __html: image.html }}
+                  />
                 </div>
               ))}
             </TabsContent>
