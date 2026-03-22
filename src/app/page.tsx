@@ -23,8 +23,8 @@ export default function Home() {
   const [blocksOpen, setBlocksOpen] = useState(false);
   const [imagesOpen, setImagesOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [imageWidth, setImageWidth] = useState(720);
-  const [imageHeight, setImageHeight] = useState(960);
+  const [imageWidth, setImageWidth] = useState(1080);
+  const [imageHeight, setImageHeight] = useState(1440);
   const [titleFontSize, setTitleFontSize] = useState(28);
   const [heading1FontSize, setHeading1FontSize] = useState(24);
   const [heading2FontSize, setHeading2FontSize] = useState(22);
