@@ -29,8 +29,10 @@ export default function Home() {
   const [imageHeight, setImageHeight] = useState(1440);
   const [activeTab, setActiveTab] = useState('blocks');
 
-  useLayoutEffect(() => {
-    hljs.highlightAll();
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      hljs.highlightAll();
+    });
   }, [blocks, activeTab]);
 
   useEffect(() => {
