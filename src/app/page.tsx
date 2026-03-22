@@ -39,11 +39,13 @@ export default function Home() {
     const newBlocks = blocks.map((block, index) => {
       const el = blockRefs.current[index];
       const height = el?.clientHeight || 0;
+      const width = el?.clientWidth || 0;
       return {
         ...block,
         json: {
           ...block.json,
-          block_height: height
+          block_height: height,
+          block_width: width
         }
       };
     });
