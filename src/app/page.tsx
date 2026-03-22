@@ -100,6 +100,7 @@ export default function Home() {
   }
 
   async function downloadAllImages() {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
     const elements = document.querySelectorAll('[data-image-index]');
     for (let i = 0; i < elements.length; i++) {
       const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
@@ -107,7 +108,7 @@ export default function Home() {
         pixelRatio: 2,
       });
       const link = document.createElement('a');
-      link.download = `image-${i + 1}.png`;
+      link.download = `${timestamp}-image-${i + 1}.png`;
       link.href = dataUrl;
       link.click();
       await new Promise(resolve => setTimeout(resolve, 200));
