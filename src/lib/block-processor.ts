@@ -53,7 +53,7 @@ function ordered(block: any, config: BlockConfig) {
 function code(block: any, config: BlockConfig) {
   const codeContent = block.json.code?.elements?.[0]?.text_run?.content || '';
   const language = block.json.code?.style?.language;
-  const codeClass = language ? `language-${language}` : 'language-plaintext';
+  const codeClass = `language-${language || 'plaintext'}`;
   block.html = `<div><pre><code class="${codeClass}">${codeContent}</code></pre></div>`;
 }
 
