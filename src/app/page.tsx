@@ -243,19 +243,15 @@ export default function Home() {
               <span>图片</span>
               {imagesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
             </button>
-            {imagesOpen && (
+            {imagesOpen && images.length > 0 && (
               <div className="border-t border-slate-200 p-4 dark:border-slate-700">
-                {images.length === 0 ? (
-                  <p className="text-sm text-slate-500">暂无图片</p>
-                ) : (
-                  <div className="grid grid-cols-4 gap-4">
-                    {images.map((image, index) => (
-                      <div key={index} className="rounded border border-slate-200 p-2">
-                        <img src={image.url} alt="" className="h-auto w-full" />
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className="grid grid-cols-4 gap-4">
+                  {images.map((image, index) => (
+                    <div key={index} className="rounded border border-slate-200 p-2">
+                      <img src={image.url} alt="" className="h-auto w-full" />
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
