@@ -77,7 +77,7 @@ async function image(block: any, config: BlockConfig) {
   const fileToken = block.json.image?.token;
   const response = await fetch(`/api/get_tmp_download_url?fileToken=${fileToken}`);
   const result = await response.json();
-  block.html = `<div><img src="${result.data}" /></div>`;
+  block.html = `<div><img src="${result.data}" width="${config.imageWidth}" height="${config.imageHeight}" /></div>`;
 }
 
 export async function processBlockByType(block: any, config: BlockConfig) {
