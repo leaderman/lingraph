@@ -19,6 +19,7 @@ export default function Home() {
   const [blocks, setBlocks] = useState<any[]>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [titleFontSize, setTitleFontSize] = useState(28);
+  const [textFontSize, setTextFontSize] = useState(14);
 
   useEffect(() => {
     fetch('/api/name')
@@ -46,7 +47,7 @@ export default function Home() {
     const result = await response.json();
     
     const rawBlocks = result.data || [];
-    const config = { titleFontSize };
+    const config = { titleFontSize, textFontSize };
     const blocks = rawBlocks.map((json: any) => {
       const block = { json, html: '' };
       processBlockByType(block, config);
@@ -89,6 +90,15 @@ export default function Home() {
                 type="number"
                 value={titleFontSize}
                 onChange={(e) => setTitleFontSize(Number(e.target.value))}
+                className="w-24"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <Label className="flex-1">文本字体大小</Label>
+              <Input
+                type="number"
+                value={textFontSize}
+                onChange={(e) => setTextFontSize(Number(e.target.value))}
                 className="w-24"
               />
             </div>

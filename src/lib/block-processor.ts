@@ -1,5 +1,6 @@
 interface BlockConfig {
   titleFontSize: number;
+  textFontSize: number;
 }
 
 function page(block: any, config: BlockConfig) {
