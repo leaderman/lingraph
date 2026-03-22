@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inspector } from 'react-dev-inspector';
 import './globals.css';
+import 'highlight.js/styles/github-dark.css';
 
 export const metadata: Metadata = {
   title: '',
