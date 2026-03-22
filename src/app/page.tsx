@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { processBlockByType } from '@/lib/block-processor';
+import hljs from 'highlight.js';
 
 export default function Home() {
   const [appName, setAppName] = useState('');
@@ -23,6 +24,10 @@ export default function Home() {
   const [heading2FontSize, setHeading2FontSize] = useState(22);
   const [heading3FontSize, setHeading3FontSize] = useState(20);
   const [textFontSize, setTextFontSize] = useState(14);
+
+  useEffect(() => {
+    hljs.highlightAll();
+  }, [blocks]);
 
   useEffect(() => {
     fetch('/api/name')
