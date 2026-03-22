@@ -82,7 +82,7 @@ export default function Home() {
     for (const block of blocks) {
       const blockHeight = block.json?.block_height || 0;
 
-      if (currentImage === null || currentHeight + blockHeight > imageHeight - 2 * paddingY) {
+      if (currentImage === null || currentHeight + blockHeight > imageHeight) {
         currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
