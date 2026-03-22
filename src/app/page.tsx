@@ -72,7 +72,7 @@ export default function Home() {
     let currentImage: any = null;
     let currentHeight = 0;
 
-    for (const block of blocksToProcess) {
+    for (const block of blocks) {
       const blockHeight = block.json?.block_height || 0;
 
       if (currentImage === null) {
