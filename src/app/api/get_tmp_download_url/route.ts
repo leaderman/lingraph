@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const token = searchParams.get('token');
+  const params = new URL(request.url).searchParams;
+  const token = params.get('token');
 
   return NextResponse.json({
     code: 200,
