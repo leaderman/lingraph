@@ -23,6 +23,8 @@ export default function Home() {
   const [blocksOpen, setBlocksOpen] = useState(false);
   const [imagesOpen, setImagesOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageWidth, setImageWidth] = useState(1080);
+  const [imageHeight, setImageHeight] = useState(1440);
   const [titleFontSize, setTitleFontSize] = useState(28);
   const [heading1FontSize, setHeading1FontSize] = useState(24);
   const [heading2FontSize, setHeading2FontSize] = useState(22);
@@ -146,6 +148,35 @@ export default function Home() {
                 onChange={(e) => setTextFontSize(Number(e.target.value))}
                 className="w-24"
               />
+            </div>
+            <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
+              <h4 className="mb-3 text-sm font-medium text-slate-600 dark:text-slate-400">图片尺寸 (3:4)</h4>
+              <div className="flex items-center gap-4">
+                <Label className="flex-1">宽度</Label>
+                <Input
+                  type="number"
+                  value={imageWidth}
+                  onChange={(e) => {
+                    const width = Number(e.target.value);
+                    setImageWidth(width);
+                    setImageHeight(Math.round(width * 4 / 3));
+                  }}
+                  className="w-24"
+                />
+              </div>
+              <div className="mt-3 flex items-center gap-4">
+                <Label className="flex-1">高度</Label>
+                <Input
+                  type="number"
+                  value={imageHeight}
+                  onChange={(e) => {
+                    const height = Number(e.target.value);
+                    setImageHeight(height);
+                    setImageWidth(Math.round(height * 3 / 4));
+                  }}
+                  className="w-24"
+                />
+              </div>
             </div>
           </div>
         </DialogContent>
