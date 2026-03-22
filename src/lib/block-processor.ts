@@ -31,6 +31,16 @@ function heading3(block: any, config: BlockConfig) {
   block.html = `<div style="font-size:${config.heading3FontSize}px; font-weight:600;">${content || ''}</div>`;
 }
 
+function bullet(block: any, config: BlockConfig) {
+  const content = block.json.bullet?.elements?.[0]?.text_run?.content;
+  block.html = `<li style="font-size:${config.textFontSize}px;">${content || ''}</li>`;
+}
+
+function ordered(block: any, config: BlockConfig) {
+  const content = block.json.ordered?.elements?.[0]?.text_run?.content;
+  block.html = `<li style="font-size:${config.textFontSize}px;">${content || ''}</li>`;
+}
+
 export function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.json.block_type;
 
@@ -51,6 +61,10 @@ export function processBlockByType(block: any, config: BlockConfig) {
       heading3(block, config);
       break;
     case 12:
+      bullet(block, config);
+      break;
+    case 13:
+      ordered(block, config);
       break;
     case 14:
       break;
