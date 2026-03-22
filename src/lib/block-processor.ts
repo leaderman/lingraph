@@ -32,13 +32,15 @@ function heading3(block: any, config: BlockConfig) {
 }
 
 function bullet(block: any, config: BlockConfig) {
-  const content = block.json.bullet?.elements?.[0]?.text_run?.content;
-  block.html = `<li style="font-size:${config.textFontSize}px;">${content || ''}</li>`;
+  const elements = block.json.bullet?.elements || [];
+  const content = elements.map((el: any) => el.text_run?.content || '').join('');
+  block.html = `<li style="font-size:${config.textFontSize}px;">${content}</li>`;
 }
 
 function ordered(block: any, config: BlockConfig) {
-  const content = block.json.ordered?.elements?.[0]?.text_run?.content;
-  block.html = `<li style="font-size:${config.textFontSize}px;">${content || ''}</li>`;
+  const elements = block.json.ordered?.elements || [];
+  const content = elements.map((el: any) => el.text_run?.content || '').join('');
+  block.html = `<li style="font-size:${config.textFontSize}px;">${content}</li>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
