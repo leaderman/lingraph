@@ -2,18 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { larkClient } from '@/lib/lark-client';
 
 export async function GET(request: NextRequest) {
-  console.log('request.url =', request.url);
-  console.log('nextUrl.href =', request.nextUrl.href);
-  console.log('nextUrl.search =', request.nextUrl.search);
-  console.log('all params =', Array.from(request.nextUrl.searchParams.entries()));
-  
   const { searchParams } = new URL(request.url);
-  const token = searchParams.get('token');
+  const fileToken = searchParams.get('fileToken');
 
-  if (!token) {
+  if (!fileToken) {
     return NextResponse.json({
       code: 400,
-      msg: 'token is required',
+      msg: 'fileToken is required',
       data: '',
     });
   }
@@ -21,7 +16,7 @@ export async function GET(request: NextRequest) {
   try {
     const res: any = await larkClient.drive.v1.media.batchGetTmpDownloadUrl({
       params: {
-        file_tokens: [token],
+        file_tokens: [fileToken],
       },
     });
 
