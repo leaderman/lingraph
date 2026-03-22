@@ -62,6 +62,10 @@ function code(block: any, config: BlockConfig) {
   block.html = `<div><pre><code class="${codeClass}">${codeContent}</code></pre></div>`;
 }
 
+function image(block: any, config: BlockConfig) {
+  block.html = '<div>[Image]</div>';
+}
+
 export function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.json.block_type;
 
@@ -90,9 +94,8 @@ export function processBlockByType(block: any, config: BlockConfig) {
     case 14:
       code(block, config);
       break;
-    case 15:
-      break;
-    case 16:
+    case 17:
+      image(block, config);
       break;
     default:
       break;
