@@ -178,7 +178,7 @@ export default function Home() {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                处理中...
+                排版中...
               </>
             ) : (
               '一键排版'
