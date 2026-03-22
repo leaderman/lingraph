@@ -174,7 +174,7 @@ export default function Home() {
             onChange={(e) => setUrl(e.target.value)}
             disabled={isLoading}
           />
-          <Button onClick={handleLayout} disabled={isLoading}>
+          <Button onClick={handleLayout} disabled={isLoading} className="min-w-[120px]">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
