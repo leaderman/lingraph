@@ -94,76 +94,87 @@ export default function Home() {
             <DialogTitle>设置</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
-            <div className="flex items-center gap-4">
-              <Label className="flex-1">文档标题字体大小</Label>
-              <Input
-                type="number"
-                value={titleFontSize}
-                onChange={(e) => setTitleFontSize(Number(e.target.value))}
-                className="w-24"
-              />
+            <div>
+              <h4 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">字体大小</h4>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">文档标题字体大小</Label>
+                  <Input
+                    type="number"
+                    value={titleFontSize}
+                    onChange={(e) => setTitleFontSize(Number(e.target.value))}
+                    className="w-24"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">一级标题字体大小</Label>
+                  <Input
+                    type="number"
+                    value={heading1FontSize}
+                    onChange={(e) => setHeading1FontSize(Number(e.target.value))}
+                    className="w-24"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">二级标题字体大小</Label>
+                  <Input
+                    type="number"
+                    value={heading2FontSize}
+                    onChange={(e) => setHeading2FontSize(Number(e.target.value))}
+                    className="w-24"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">三级标题字体大小</Label>
+                  <Input
+                    type="number"
+                    value={heading3FontSize}
+                    onChange={(e) => setHeading3FontSize(Number(e.target.value))}
+                    className="w-24"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">文本字体大小</Label>
+                  <Input
+                    type="number"
+                    value={textFontSize}
+                    onChange={(e) => setTextFontSize(Number(e.target.value))}
+                    className="w-24"
+                  />
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-              <Label className="flex-1">一级标题字体大小</Label>
-              <Input
-                type="number"
-                value={heading1FontSize}
-                onChange={(e) => setHeading1FontSize(Number(e.target.value))}
-                className="w-24"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <Label className="flex-1">二级标题字体大小</Label>
-              <Input
-                type="number"
-                value={heading2FontSize}
-                onChange={(e) => setHeading2FontSize(Number(e.target.value))}
-                className="w-24"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <Label className="flex-1">三级标题字体大小</Label>
-              <Input
-                type="number"
-                value={heading3FontSize}
-                onChange={(e) => setHeading3FontSize(Number(e.target.value))}
-                className="w-24"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <Label className="flex-1">文本字体大小</Label>
-              <Input
-                type="number"
-                value={textFontSize}
-                onChange={(e) => setTextFontSize(Number(e.target.value))}
-                className="w-24"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <Label className="flex-1">图片宽度</Label>
-              <Input
-                type="number"
-                value={imageWidth}
-                onChange={(e) => {
-                  const width = Number(e.target.value);
-                  setImageWidth(width);
-                  setImageHeight(Math.round(width * 4 / 3));
-                }}
-                className="w-24"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <Label className="flex-1">图片高度</Label>
-              <Input
-                type="number"
-                value={imageHeight}
-                onChange={(e) => {
-                  const height = Number(e.target.value);
-                  setImageHeight(height);
-                  setImageWidth(Math.round(height * 3 / 4));
-                }}
-                className="w-24"
-              />
+
+            <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
+              <h4 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">图片大小</h4>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">图片宽度</Label>
+                  <Input
+                    type="number"
+                    value={imageWidth}
+                    onChange={(e) => {
+                      const width = Number(e.target.value);
+                      setImageWidth(width);
+                      setImageHeight(Math.round(width * 4 / 3));
+                    }}
+                    className="w-24"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">图片高度</Label>
+                  <Input
+                    type="number"
+                    value={imageHeight}
+                    onChange={(e) => {
+                      const height = Number(e.target.value);
+                      setImageHeight(height);
+                      setImageWidth(Math.round(height * 3 / 4));
+                    }}
+                    className="w-24"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </DialogContent>
