@@ -284,6 +284,7 @@ export default function Home() {
                       </h4>
                       <div
                         ref={(el) => { blockRefs.current[index] = el?.firstElementChild as HTMLDivElement; }}
+                        className="rounded border border-slate-200 p-3 dark:border-slate-700"
                         dangerouslySetInnerHTML={{ __html: block.html }}
                       />
                     </div>
