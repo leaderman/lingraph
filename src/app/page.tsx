@@ -116,12 +116,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    requestAnimationFrame(() => {
-      hljs.highlightAll();
-    });
-  }, [blocks, activeTab]);
-
-  useEffect(() => {
     fetch('/api/name')
       .then((res) => res.json())
       .then((data) => {
