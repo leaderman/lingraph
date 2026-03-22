@@ -54,6 +54,7 @@ export default function Home() {
   const handleLayout = async () => {
     if (loading) return;
     setLoading(true);
+    setBlocks([]);
     try {
       const response = await fetch('/api/parse', {
         method: 'POST',
