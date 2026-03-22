@@ -56,11 +56,11 @@ export default function Home() {
     
     const rawBlocks = result.data || [];
     const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1 };
-    const blocks = rawBlocks.map((json: any) => {
+    const blocks = await Promise.all(rawBlocks.map(async (json: any) => {
       const block = { json, html: '' };
-      processBlockByType(block, config);
+      await processBlockByType(block, config);
       return block;
-    });
+    }));
     
     setBlocks(blocks);
   };

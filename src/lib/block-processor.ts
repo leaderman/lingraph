@@ -62,11 +62,27 @@ function code(block: any, config: BlockConfig) {
   block.html = `<div><pre><code class="${codeClass}">${codeContent}</code></pre></div>`;
 }
 
-function image(block: any, config: BlockConfig) {
-  block.html = '<div>[Image]</div>';
+async function image(block: any, config: BlockConfig) {
+  const token = block.json.image?.token;
+  if (!token) {
+    block.html = '<div>[Image: no token]</div>';
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/api/get_tmp_download_url?token=${token}`);
+    const result = await response.json();
+    if (result.code === 200 && result.data) {
+      block.html = `<div><img src="${result.data}" alt="image" style="max-width:100%;" /></div>`;
+    } else {
+      block.html = '<div>[Image: failed to load]</div>';
+    }
+  } catch (e) {
+    block.html = '<div>[Image: error]</div>';
+  }
 }
 
-export function processBlockByType(block: any, config: BlockConfig) {
+export async function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.json.block_type;
 
   switch (blockType) {
@@ -95,7 +111,7 @@ export function processBlockByType(block: any, config: BlockConfig) {
       code(block, config);
       break;
     case 17:
-      image(block, config);
+      await image(block, config);
       break;
     default:
       break;
