@@ -334,8 +334,7 @@ export default function Home() {
             {imagesOpen && (
               <div className="space-y-4 border-t border-slate-200 p-4 dark:border-slate-700">
                 {images.map((pageBlocks, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    <span className="text-sm font-medium text-slate-500">{index + 1}</span>
+                  <div key={index} className="flex justify-center">
                     <div
                       className="overflow-hidden rounded border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800"
                       style={{ width: imageWidth, height: imageHeight, maxWidth: '100%' }}
