@@ -52,8 +52,7 @@ function ordered(block: any, config: BlockConfig) {
 
 function code(block: any, config: BlockConfig) {
   const codeContent = block.json.code?.elements?.[0]?.text_run?.content || '';
-  const language = block.json.code?.style?.language || 'plaintext';
-  block.html = `<div style="font-size:${config.textFontSize}px; margin:10px 0;"><pre style="background:#f5f5f5; padding:16px; border-radius:4px; overflow-x:auto;"><code class="language-${language}">${codeContent}</code></pre></div>`;
+  block.html = `<div>${codeContent}</div>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
