@@ -50,6 +50,12 @@ function ordered(block: any, config: BlockConfig) {
   block.html = `<div style="font-size:${config.textFontSize}px;"><ol start="${config.sequence}" style="list-style-type:decimal; padding-left:20px;"><li>${content}</li></ol></div>`;
 }
 
+function code(block: any, config: BlockConfig) {
+  const codeContent = block.json.code_block?.elements?.[0]?.text_run?.content || '';
+  const language = block.json.code_block?.style?.language || 'plaintext';
+  block.html = `<div style="font-size:${config.textFontSize}px; margin:10px 0;"><pre style="background:#f5f5f5; padding:16px; border-radius:4px; overflow-x:auto;"><code class="language-${language}">${codeContent}</code></pre></div>`;
+}
+
 export function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.json.block_type;
 
@@ -76,6 +82,7 @@ export function processBlockByType(block: any, config: BlockConfig) {
       ordered(block, config);
       break;
     case 14:
+      code(block, config);
       break;
     case 15:
       break;
