@@ -67,7 +67,7 @@ export default function Home() {
     });
   }, [shouldMeasure, blocks]);
 
-  function createImages(blocksToProcess: any[]) {
+  function createImages(blocks: any[]) {
     const newImages: any[] = [];
     let currentImage: any = null;
     let currentHeight = 0;
