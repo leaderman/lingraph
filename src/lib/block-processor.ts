@@ -62,7 +62,7 @@ function code(block: any, config: BlockConfig) {
   block.html = `<div><pre><code class="${codeClass}">${codeContent}</code></pre></div>`;
 }
 
-async function image(block: any, config: BlockConfig) {
+async function image(block: any) {
   const token = block.json.image?.token;
   const response = await fetch(`/api/get_tmp_download_url?token=${token}`);
   const result = await response.json();
@@ -98,7 +98,7 @@ export async function processBlockByType(block: any, config: BlockConfig) {
       code(block, config);
       break;
     case 17:
-      await image(block, config);
+      await image(block);
       break;
     default:
       break;
