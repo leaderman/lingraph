@@ -85,7 +85,11 @@ export default function Home() {
     measureContainer.style.overflow = 'hidden';
     document.body.appendChild(measureContainer);
     
-    for (const block of blocks) {
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
+      console.log(`[分页] 正在处理第 ${i + 1}/${blocks.length} 个 block`);
+      console.log(`[分页] block html: ${block.html.substring(0, 100)}${block.html.length > 100 ? '...' : ''}`);
+      
       // 测量当前 block 的高度
       const testContainer = document.createElement('div');
       testContainer.innerHTML = block.html;
@@ -93,6 +97,7 @@ export default function Home() {
       measureContainer.appendChild(testContainer);
       const blockHeight = testContainer.offsetHeight;
       measureContainer.removeChild(testContainer);
+      console.log(`[分页] block 高度: ${blockHeight}px`);
       
       // 测试将当前 block 加入当前页面后的高度
       const testPageContainer = document.createElement('div');
@@ -102,24 +107,33 @@ export default function Home() {
       measureContainer.appendChild(testPageContainer);
       const totalHeight = testPageContainer.offsetHeight;
       measureContainer.removeChild(testPageContainer);
+      console.log(`[分页] 加入后页面总高度: ${totalHeight}px (限制: ${imageHeight}px)`);
       
       // 如果当前页面为空，直接加入
       if (currentPageBlocks.length === 0) {
         currentPageBlocks.push(block.html);
+        console.log(`[分页] 插入到第 ${images.length + 1} 个图片 (新页面)`);
       } else if (totalHeight <= imageHeight) {
         // 未溢出，继续加入当前页面
         currentPageBlocks.push(block.html);
+        console.log(`[分页] 插入到第 ${images.length + 1} 个图片 (当前页面)`);
       } else {
         // 溢出，保存当前页面，创建新页面
+        console.log(`[分页] 页面溢出! 创建新页面`);
         images.push([...currentPageBlocks]);
         currentPageBlocks = [block.html];
+        console.log(`[分页] 插入到第 ${images.length + 1} 个图片 (新页面)`);
       }
+      console.log('---');
     }
     
     // 保存最后一个页面
     if (currentPageBlocks.length > 0) {
       images.push(currentPageBlocks);
+      console.log(`[分页] 保存最后一个页面，共 ${currentPageBlocks.length} 个 block`);
     }
+    
+    console.log(`[分页] 处理完成，共生成 ${images.length} 个图片`);
     
     // 清理测量容器
     document.body.removeChild(measureContainer);
