@@ -20,6 +20,8 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    console.log('batchGetTmpDownloadUrl res:', res);
+
     const tmpDownloadUrl = res.data?.tmp_download_urls?.[0]?.tmp_download_url || '';
 
     return NextResponse.json({
