@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
   try {
     const res: any = await client.drive.v1.media.batchGetTmpDownloadUrl({
       params: {
-        file_tokens: token,
+        file_tokens: [token],
       },
     });
 
