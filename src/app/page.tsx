@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Settings } from 'lucide-react';
+import { Settings, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,7 +17,10 @@ import hljs from 'highlight.js';
 export default function Home() {
   const [appName, setAppName] = useState('');
   const [url, setUrl] = useState('');
-  const [blocks, setBlocks] = useState<any[]>([]);
+  const [docBlocks, setDocBlocks] = useState<any[]>([]);
+  const [imageBlocks, setImageBlocks] = useState<any[]>([]);
+  const [docExpanded, setDocExpanded] = useState(false);
+  const [imageExpanded, setImageExpanded] = useState(true);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [titleFontSize, setTitleFontSize] = useState(28);
   const [heading1FontSize, setHeading1FontSize] = useState(24);
@@ -27,7 +30,7 @@ export default function Home() {
 
   useEffect(() => {
     hljs.highlightAll();
-  }, [blocks]);
+  }, [docBlocks, imageBlocks]);
 
   useEffect(() => {
     fetch('/api/name')
@@ -56,13 +59,17 @@ export default function Home() {
     
     const rawBlocks = result.data || [];
     const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1 };
-    const blocks = await Promise.all(rawBlocks.map(async (json: any) => {
+    const processedBlocks = await Promise.all(rawBlocks.map(async (json: any) => {
       const block = { json, html: '' };
       await processBlockByType(block, config);
       return block;
     }));
     
-    setBlocks(blocks);
+    const docs = processedBlocks.filter((b: any) => b.json.block_type !== 27);
+    const images = processedBlocks.filter((b: any) => b.json.block_type === 27);
+    
+    setDocBlocks(docs);
+    setImageBlocks(images);
   };
 
   return (
@@ -157,51 +164,96 @@ export default function Home() {
           <Button onClick={handleLayout}>一键排版</Button>
         </div>
 
-        {/* 文档块展示区域 */}
-        {blocks.length > 0 && (
-          <div className="mt-6 space-y-4">
-            <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
-              文档块 ({blocks.length})
-            </h3>
-            {blocks.map((block, index) => (
-              <div
-                key={index}
-                className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
-              >
-                <div className="grid grid-cols-3 gap-4">
-                  {/* 1. JSON 字符串 */}
-                  <div>
-                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                      JSON
-                    </h4>
-                    <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                      {JSON.stringify(block.json, null, 2)}
-                    </pre>
-                  </div>
-
-                  {/* 2. HTML 字符串 */}
-                  <div>
-                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                      HTML
-                    </h4>
-                    <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
-                      {block.html}
-                    </pre>
-                  </div>
-
-                  {/* 3. HTML 渲染效果 */}
-                  <div>
-                    <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
-                      {block.block_name}
-                    </h4>
+        {/* 图片区域 */}
+        {imageBlocks.length > 0 && (
+          <div className="mt-6 rounded-lg border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+            <button
+              onClick={() => setImageExpanded(!imageExpanded)}
+              className="flex w-full items-center justify-between p-4 text-left"
+            >
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+                图片 ({imageBlocks.length})
+              </h3>
+              {imageExpanded ? (
+                <ChevronUp className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+              ) : (
+                <ChevronDown className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+              )}
+            </button>
+            {imageExpanded && (
+              <div className="border-t border-slate-200 p-4 dark:border-slate-700">
+                <div className="grid grid-cols-4 gap-4">
+                  {imageBlocks.map((block, index) => (
                     <div
-                      className="rounded border border-slate-200 p-3 dark:border-slate-700"
+                      key={index}
                       dangerouslySetInnerHTML={{ __html: block.html }}
                     />
-                  </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            )}
+          </div>
+        )}
+
+        {/* 文档块区域 */}
+        {docBlocks.length > 0 && (
+          <div className="mt-6 rounded-lg border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+            <button
+              onClick={() => setDocExpanded(!docExpanded)}
+              className="flex w-full items-center justify-between p-4 text-left"
+            >
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+                文档块 ({docBlocks.length})
+              </h3>
+              {docExpanded ? (
+                <ChevronUp className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+              ) : (
+                <ChevronDown className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+              )}
+            </button>
+            {docExpanded && (
+              <div className="border-t border-slate-200 p-4 dark:border-slate-700 space-y-4">
+                {docBlocks.map((block, index) => (
+                  <div
+                    key={index}
+                    className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                  >
+                    <div className="grid grid-cols-3 gap-4">
+                      {/* 1. JSON 字符串 */}
+                      <div>
+                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                          JSON
+                        </h4>
+                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                          {JSON.stringify(block.json, null, 2)}
+                        </pre>
+                      </div>
+
+                      {/* 2. HTML 字符串 */}
+                      <div>
+                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                          HTML
+                        </h4>
+                        <pre className="whitespace-pre-wrap break-all rounded bg-slate-100 p-3 text-xs dark:bg-slate-900">
+                          {block.html}
+                        </pre>
+                      </div>
+
+                      {/* 3. HTML 渲染效果 */}
+                      <div>
+                        <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+                          {block.block_name}
+                        </h4>
+                        <div
+                          className="rounded border border-slate-200 p-3 dark:border-slate-700"
+                          dangerouslySetInnerHTML={{ __html: block.html }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>
