@@ -27,10 +27,11 @@ export default function Home() {
   const [textFontSize, setTextFontSize] = useState(14);
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
+  const [activeTab, setActiveTab] = useState('blocks');
 
   useEffect(() => {
     hljs.highlightAll();
-  }, [blocks]);
+  }, [blocks, activeTab]);
 
   useEffect(() => {
     fetch('/api/name')
@@ -199,7 +200,7 @@ export default function Home() {
 
         {/* 文档块展示区域 */}
         <div className="mt-6">
-          <Tabs defaultValue="blocks" className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList>
               <TabsTrigger value="blocks">文档块 ({blocks.length})</TabsTrigger>
               <TabsTrigger value="container">容器</TabsTrigger>
