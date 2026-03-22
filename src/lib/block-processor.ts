@@ -63,8 +63,8 @@ function code(block: any, config: BlockConfig) {
 }
 
 async function image(block: any, config: BlockConfig) {
-  const token = block.json.image?.token;
-  const response = await fetch(`/api/get_tmp_download_url?token=${token}`);
+  const fileToken = block.json.image?.token;
+  const response = await fetch(`/api/get_tmp_download_url?fileToken=${fileToken}`);
   const result = await response.json();
   block.html = `<div><img src="${result.data}" /></div>`;
 }
