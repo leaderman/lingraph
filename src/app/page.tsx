@@ -352,23 +352,6 @@ export default function Home() {
             </TabsContent>
             
             <TabsContent value="images" className="space-y-4">
-              <div className="flex justify-center">
-                <Button
-                  onClick={async () => {
-                    const elements = document.querySelectorAll('[data-image-index]');
-                    for (let i = 0; i < elements.length; i++) {
-                      const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement);
-                      const link = document.createElement('a');
-                      link.download = `image-${i + 1}.png`;
-                      link.href = dataUrl;
-                      link.click();
-                      await new Promise(resolve => setTimeout(resolve, 200));
-                    }
-                  }}
-                >
-                  下载所有图片
-                </Button>
-              </div>
               {images.map((image, index) => (
                 <div
                   key={index}
@@ -380,6 +363,25 @@ export default function Home() {
                   />
                 </div>
               ))}
+              {images.length > 0 && (
+                <div className="flex justify-center">
+                  <Button
+                    onClick={async () => {
+                      const elements = document.querySelectorAll('[data-image-index]');
+                      for (let i = 0; i < elements.length; i++) {
+                        const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement);
+                        const link = document.createElement('a');
+                        link.download = `image-${i + 1}.png`;
+                        link.href = dataUrl;
+                        link.click();
+                        await new Promise(resolve => setTimeout(resolve, 200));
+                      }
+                    }}
+                  >
+                    下载所有图片
+                  </Button>
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </div>
