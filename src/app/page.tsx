@@ -67,7 +67,36 @@ export default function Home() {
     });
   }, [shouldMeasure, blocks]);
 
-  function createImages() {}
+  function createImages() {
+    const newImages: any[] = [];
+    let currentImage: any = null;
+    let currentHeight = 0;
+
+    for (const block of blocks) {
+      const blockHeight = block.json?.block_height || 0;
+
+      if (currentImage === null) {
+        currentImage = {
+          html: `<div style="width: ${imageWidth}px; height: ${imageHeight}px;">${block.html}</div>`,
+        };
+        currentHeight = blockHeight;
+        newImages.push(currentImage);
+      } else if (currentHeight + blockHeight > imageHeight) {
+        // 超过高度，创建新 Image
+        currentImage = {
+          html: `<div style="width: ${imageWidth}px; height: ${imageHeight}px;">${block.html}</div>`,
+        };
+        currentHeight = blockHeight;
+        newImages.push(currentImage);
+      } else {
+        // 加入当前 Image
+        currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
+        currentHeight += blockHeight;
+      }
+    }
+
+    setImages(newImages);
+  }
 
   useEffect(() => {
     requestAnimationFrame(() => {
