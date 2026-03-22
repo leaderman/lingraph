@@ -290,7 +290,7 @@ export default function Home() {
                     </div>
 
                     {/* 4. 尺寸信息 */}
-                    <div>
+                    <div className="w-32">
                       <h4 className="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
                         尺寸
                       </h4>
