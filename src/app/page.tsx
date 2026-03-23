@@ -100,9 +100,21 @@ export default function Home() {
     const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
     const elements = document.querySelectorAll('[data-image-index]');
     for (let i = 0; i < elements.length; i++) {
+      // 等待当前元素内的所有图片加载完成
+      const imgs = elements[i].querySelectorAll('img');
+      await Promise.all(
+        Array.from(imgs).map(img => 
+          img.complete ? Promise.resolve() : new Promise<void>(resolve => {
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+          })
+        )
+      );
+      
       const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
         skipFonts: true,
         pixelRatio: 2,
+        cacheBust: true,
       });
       const link = document.createElement('a');
       link.download = `${timestamp}-image-${i + 1}.png`;
