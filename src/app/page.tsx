@@ -28,6 +28,7 @@ export default function Home() {
   const [textFontSize, setTextFontSize] = useState(18);
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
+  const [imageScale, setImageScale] = useState(0.3);
   const [paddingX, setPaddingX] = useState(64);
   const [paddingY, setPaddingY] = useState(64);
   const [blockSpacing, setBaseLineHeight] = useState(14);
@@ -267,6 +268,18 @@ export default function Home() {
                       setImageHeight(height);
                       setImageWidth(Math.round(height * 3 / 4));
                     }}
+                    className="w-24"
+                  />
+                </div>
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">缩放比例</Label>
+                  <Input
+                    type="number"
+                    min={0.1}
+                    max={1.0}
+                    step={0.1}
+                    value={imageScale}
+                    onChange={(e) => setImageScale(Number(e.target.value))}
                     className="w-24"
                   />
                 </div>
