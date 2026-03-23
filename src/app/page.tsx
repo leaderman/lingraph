@@ -78,11 +78,12 @@ export default function Home() {
 
   function createImages(blocks: any[]) {
     const newImages: any[] = [];
+    
     let currentImage: any = null;
     let currentHeight = 0;
 
     for (const block of blocks) {
-      const blockHeight = block.json?.block_height || 0;
+      const blockHeight = block.json.block_height;
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
         currentImage = createNewImage(newImages.length, block.html);
