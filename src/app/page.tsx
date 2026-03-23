@@ -51,8 +51,9 @@ export default function Home() {
     Promise.all(imagePromises).then(() => {
       const newBlocks = blocks.map((block, index) => {
         const el = blockRefs.current[index];
-        const width = el?.clientWidth;
-        const height = el?.clientHeight;
+        if (!el) return block;
+        const width = el.clientWidth;
+        const height = el.clientHeight;
         return {
           ...block,
           json: {
