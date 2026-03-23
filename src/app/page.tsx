@@ -420,7 +420,12 @@ export default function Home() {
                 <div
                   key={index}
                   className="rounded-lg bg-white p-4 dark:bg-slate-800"
-                  style={{ transform: `scale(${imageScale})`, transformOrigin: 'top left' }}
+                  style={{ 
+                    transform: `scale(${imageScale})`, 
+                    transformOrigin: 'top left',
+                    height: `${imageHeight * imageScale + 32}px`,
+                    width: `${imageWidth * imageScale + 32}px`,
+                  }}
                 >
                   <div
                     className="inline-block rounded border border-slate-200 dark:border-slate-700"
