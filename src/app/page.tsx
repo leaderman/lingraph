@@ -98,19 +98,34 @@ export default function Home() {
   }
 
   async function downloadAllImages() {
-    const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
-    const elements = document.querySelectorAll('[data-image-index]');
-    for (let i = 0; i < elements.length; i++) {
-      const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
-        skipFonts: true,
-        pixelRatio: 2,
-        includeQueryParams: true,
-      });
-      const link = document.createElement('a');
-      link.download = `${timestamp}-image-${i + 1}.png`;
-      link.href = dataUrl;
-      link.click();
-      await new Promise(resolve => setTimeout(resolve, 200));
+    const btn = document.getElementById('download-btn') as HTMLButtonElement;
+    const originalText = btn?.textContent || '下载所有图片';
+    
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '下载中...';
+    }
+    
+    try {
+      const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
+      const elements = document.querySelectorAll('[data-image-index]');
+      for (let i = 0; i < elements.length; i++) {
+        const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
+          skipFonts: true,
+          pixelRatio: 2,
+          includeQueryParams: true,
+        });
+        const link = document.createElement('a');
+        link.download = `${timestamp}-image-${i + 1}.png`;
+        link.href = dataUrl;
+        link.click();
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
     }
   }
 
@@ -441,7 +456,7 @@ export default function Home() {
               </div>
               {images.length > 0 && (
                 <div className="flex justify-center">
-                  <Button onClick={downloadAllImages}>
+                  <Button id="download-btn" onClick={downloadAllImages}>
                     下载所有图片
                   </Button>
                 </div>
