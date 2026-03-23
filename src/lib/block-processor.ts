@@ -82,12 +82,7 @@ function image(block: any, config: BlockConfig) {
   const url = block.json.image.url;
   const width = block.json.image.width;
   const scale = block.json.image.scale;
-  block.html = `<div style="padding-top:${config.blockSpacing}px;">
-  <img
-    src="${url}"
-    style="width:${width * scale}px; max-width:100%; height:auto;"
-  />
-</div>`;
+  block.html = `<div style="padding-top:${config.blockSpacing}px;"><img src="${url}" style="width:${width * scale}px; max-width:100%; height:auto;" /></div>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
