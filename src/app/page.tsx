@@ -70,9 +70,9 @@ export default function Home() {
     });
   }, [shouldMeasure, blocks]);
 
-  function createNewImage(index: number, html: string, width: number, height: number, paddingY: number, paddingX: number) {
+  function createNewImage(index: number, html: string) {
     return {
-      html: `<div data-image-index="${index}" style="width: ${width}px; height: ${height}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
+      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
     };
   }
 
@@ -85,7 +85,7 @@ export default function Home() {
       const blockHeight = block.json?.block_height || 0;
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
-        currentImage = createNewImage(newImages.length, block.html, imageWidth, imageHeight, paddingY, paddingX);
+        currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
       } else {
