@@ -386,7 +386,7 @@ export default function Home() {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="flex justify-center rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800"
+                  className="flex justify-center rounded-lg bg-white p-4 dark:bg-slate-800"
                 >
                   <div
                     className="inline-block rounded border border-slate-200 dark:border-slate-700"
