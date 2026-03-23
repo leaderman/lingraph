@@ -10,7 +10,6 @@ interface BlockConfig {
   sequence: number;
   imageWidth: number;
   imageHeight: number;
-  imageScale: number;
 }
 
 function page(block: any, config: BlockConfig) {
@@ -82,7 +81,8 @@ function image(block: any, config: BlockConfig) {
   block.block_name = '图片';
   const url = block.json.image.url;
   const width = block.json.image.width;
-  block.html = `<div style="padding-top:${config.blockSpacing}px;"><img src="${url}" style="width:${width * config.imageScale}px; max-width:100%; height:auto;" /></div>`;
+  const scale = block.json.image.scale;
+  block.html = `<div style="padding-top:${config.blockSpacing}px;"><img src="${url}" style="width:${width * scale}px; max-width:100%; height:auto;" /></div>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
