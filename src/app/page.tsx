@@ -67,7 +67,6 @@ export default function Home() {
       setBlocks(newBlocks);
       setShouldMeasure(false);
       createImages(newBlocks);
-      setActiveTab('images');
     });
   }, [shouldMeasure, blocks]);
 
