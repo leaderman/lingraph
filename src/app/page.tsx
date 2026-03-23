@@ -141,6 +141,10 @@ export default function Home() {
     setImages([]);
     setShouldMeasure(false);
     blockRefs.current = [];
+    
+    // 等待 React 完成清空状态的渲染，确保 DOM 和 ref 已重置
+    await new Promise(resolve => setTimeout(resolve, 0));
+    
     try {
       const response = await fetch('/api/parse', {
         method: 'POST',
