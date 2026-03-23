@@ -416,7 +416,7 @@ export default function Home() {
             </TabsContent>
             
             <TabsContent value="images" className="flex justify-center">
-              <div className="flex flex-wrap gap-4">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4">
                 {images.map((image, index) => (
                   <div
                     key={index}
@@ -435,7 +435,7 @@ export default function Home() {
                   </div>
                 ))}
                 {images.length > 0 && (
-                  <div className="w-full flex justify-center">
+                  <div className="col-span-full flex justify-center">
                     <Button onClick={downloadAllImages}>
                       下载所有图片
                     </Button>
