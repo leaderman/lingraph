@@ -77,24 +77,30 @@ export default function Home() {
   }
 
   function createImages(blocks: any[]) {
+    console.log('[createImages] 开始处理', blocks.length, '个 blocks');
     const newImages: any[] = [];
     
     let currentImage: any = null;
     let currentHeight = 0;
 
-    for (const block of blocks) {
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
       const blockHeight = block.json.block_height;
+      console.log(`[createImages] 处理 block ${i}, 高度: ${blockHeight}, 当前高度: ${currentHeight}, 图片高度: ${imageHeight}`);
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
+        console.log(`[createImages] 创建新 Image, 索引: ${newImages.length}`);
         currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
       } else {
+        console.log(`[createImages] 加入当前 Image`);
         currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
         currentHeight += blockHeight;
       }
     }
 
+    console.log('[createImages] 完成，生成', newImages.length, '个 Images');
     setImages(newImages);
   }
 
