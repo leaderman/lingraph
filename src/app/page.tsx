@@ -119,7 +119,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         if (data.code === 200) {
-          setAppName(data.data);
+          setAppName(data.data + '- 飞书云文档转图片');
           document.title = data.data + '- 飞书云文档转图片';
         }
       });
