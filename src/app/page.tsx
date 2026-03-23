@@ -147,7 +147,7 @@ export default function Home() {
       const result = await response.json();
       
       const rawBlocks = result.data || [];
-      const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1, imageWidth, imageHeight };
+      const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, baseLineHeight, sequence: 1, imageWidth, imageHeight };
       const blocks = rawBlocks.map((json: any) => {
         const block = { json, html: '' };
         processBlockByType(block, config);
