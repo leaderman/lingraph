@@ -423,8 +423,8 @@ export default function Home() {
                   style={{ 
                     transform: `scale(${imageScale})`, 
                     transformOrigin: 'top left',
-                    height: `${imageHeight * imageScale + 32}px`,
-                    width: `${imageWidth * imageScale + 32}px`,
+                    marginRight: `${-imageWidth * (1 - imageScale)}px`,
+                    marginBottom: `${-imageHeight * (1 - imageScale)}px`,
                   }}
                 >
                   <div
