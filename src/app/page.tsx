@@ -29,7 +29,7 @@ export default function Home() {
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
   const [paddingX, setPaddingX] = useState(64);
-  const [paddingY, setPaddingY] = useState(80);
+  const [paddingY, setPaddingY] = useState(64);
   const [activeTab, setActiveTab] = useState('blocks');
   const [loading, setLoading] = useState(false);
   const [shouldMeasure, setShouldMeasure] = useState(false);
