@@ -415,11 +415,11 @@ export default function Home() {
               ))}
             </TabsContent>
             
-            <TabsContent value="images" className="space-y-4">
+            <TabsContent value="images" className="flex flex-wrap gap-4">
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="flex justify-center rounded-lg bg-white p-4 dark:bg-slate-800"
+                  className="rounded-lg bg-white p-4 dark:bg-slate-800"
                   style={{ transform: `scale(${imageScale})`, transformOrigin: 'top left' }}
                 >
                   <div
@@ -429,7 +429,7 @@ export default function Home() {
                 </div>
               ))}
               {images.length > 0 && (
-                <div className="flex justify-center">
+                <div className="flex w-full justify-center">
                   <Button onClick={downloadAllImages}>
                     下载所有图片
                   </Button>
