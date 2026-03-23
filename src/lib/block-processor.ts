@@ -46,7 +46,7 @@ function bullet(block: any, config: BlockConfig) {
   block.block_name = '无序列表';
   const elements = block.json.bullet?.elements || [];
   const content = elements.map((el: any) => el.text_run?.content || '').join('');
-  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px;"><ul style="list-style-type:disc; padding-left:20px;"><li>${content}</li></ul></div>`;
+  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px; font-weight:400;"><ul style="list-style-type:disc; padding-left:20px;"><li>${content}</li></ul></div>`;
 }
 
 function ordered(block: any, config: BlockConfig) {
@@ -59,7 +59,7 @@ function ordered(block: any, config: BlockConfig) {
   } else {
     config.sequence = config.sequence + 1;
   }
-  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px;"><ol start="${config.sequence}" style="list-style-type:decimal; padding-left:20px;"><li>${content}</li></ol></div>`;
+  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px; font-weight:400;"><ol start="${config.sequence}" style="list-style-type:decimal; padding-left:20px;"><li>${content}</li></ol></div>`;
 }
 
 function code(block: any, config: BlockConfig) {
