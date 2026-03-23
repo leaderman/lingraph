@@ -36,7 +36,6 @@ export default function Home() {
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    console.log('[useEffect] 触发测量, shouldMeasure:', shouldMeasure, 'blocks.length:', blocks.length);
     if (!shouldMeasure || blocks.length === 0) return;
     
     // 等待所有图片加载完成
@@ -50,12 +49,10 @@ export default function Home() {
     });
     
     Promise.all(imagePromises).then(() => {
-      console.log('[useEffect] 图片加载完成，开始测量尺寸');
       const newBlocks = blocks.map((block, index) => {
         const el = blockRefs.current[index];
-        if (!el) return block;
-        const width = el.clientWidth;
-        const height = el.clientHeight;
+        const width = el?.clientWidth || 0;
+        const height = el?.clientHeight || 0;
         return {
           ...block,
           json: {
@@ -72,37 +69,28 @@ export default function Home() {
     });
   }, [shouldMeasure, blocks]);
 
-  function createNewImage(index: number, html: string) {
-    return {
-      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
-    };
-  }
-
   function createImages(blocks: any[]) {
-    console.log('[createImages] 开始处理', blocks.length, '个 blocks');
     const newImages: any[] = [];
-    
     let currentImage: any = null;
     let currentHeight = 0;
 
-    for (let i = 0; i < blocks.length; i++) {
-      const block = blocks[i];
-      const blockHeight = block.json.block_height;
-      console.log(`[createImages] 处理 block ${i}, 高度: ${blockHeight}, 当前高度: ${currentHeight}, 图片高度: ${imageHeight}`);
+    const createNewImage = (index: number, html: string) => ({
+      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
+    });
+
+    for (const block of blocks) {
+      const blockHeight = block.json?.block_height || 0;
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
-        console.log(`[createImages] 创建新 Image, 索引: ${newImages.length}`);
         currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
       } else {
-        console.log(`[createImages] 加入当前 Image`);
         currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
         currentHeight += blockHeight;
       }
     }
 
-    console.log('[createImages] 完成，生成', newImages.length, '个 Images');
     setImages(newImages);
   }
 
