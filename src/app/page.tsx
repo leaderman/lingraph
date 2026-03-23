@@ -423,6 +423,7 @@ export default function Home() {
                 >
                   <div
                     className="inline-block rounded border border-slate-200 dark:border-slate-700"
+                    style={{ transform: `scale(${imageScale})`, transformOrigin: 'top left' }}
                     dangerouslySetInnerHTML={{ __html: image.html }}
                   />
                 </div>
