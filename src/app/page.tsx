@@ -100,21 +100,24 @@ export default function Home() {
 
   async function downloadAllImages() {
     setDownloading(true);
-    const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
-    const elements = document.querySelectorAll('[data-image-index]');
-    for (let i = 0; i < elements.length; i++) {
-      const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
-        skipFonts: true,
-        pixelRatio: 2,
-        includeQueryParams: true,
-      });
-      const link = document.createElement('a');
-      link.download = `${timestamp}-image-${i + 1}.png`;
-      link.href = dataUrl;
-      link.click();
-      await new Promise(resolve => setTimeout(resolve, 200));
+    try {
+      const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
+      const elements = document.querySelectorAll('[data-image-index]');
+      for (let i = 0; i < elements.length; i++) {
+        const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
+          skipFonts: true,
+          pixelRatio: 2,
+          includeQueryParams: true,
+        });
+        const link = document.createElement('a');
+        link.download = `${timestamp}-image-${i + 1}.png`;
+        link.href = dataUrl;
+        link.click();
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+    } finally {
+      setDownloading(false);
     }
-    setDownloading(false);
   }
 
   useEffect(() => {
