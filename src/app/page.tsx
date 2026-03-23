@@ -34,7 +34,6 @@ export default function Home() {
   const [blockSpacing, setBaseLineHeight] = useState(14);
   const [activeTab, setActiveTab] = useState('blocks');
   const [loading, setLoading] = useState(false);
-  const [downloading, setDownloading] = useState(false);
   const [shouldMeasure, setShouldMeasure] = useState(false);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -99,29 +98,19 @@ export default function Home() {
   }
 
   async function downloadAllImages() {
+    const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
     const elements = document.querySelectorAll('[data-image-index]');
-    if (elements.length === 0) return;
-    
-    setDownloading(true);
-    // 延迟一下确保 DOM 稳定
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
-    try {
-      const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
-      for (let i = 0; i < elements.length; i++) {
-        const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
-          skipFonts: true,
-          pixelRatio: 2,
-          includeQueryParams: true,
-        });
-        const link = document.createElement('a');
-        link.download = `${timestamp}-image-${i + 1}.png`;
-        link.href = dataUrl;
-        link.click();
-        await new Promise(resolve => setTimeout(resolve, 200));
-      }
-    } finally {
-      setDownloading(false);
+    for (let i = 0; i < elements.length; i++) {
+      const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
+        skipFonts: true,
+        pixelRatio: 2,
+        includeQueryParams: true,
+      });
+      const link = document.createElement('a');
+      link.download = `${timestamp}-image-${i + 1}.png`;
+      link.href = dataUrl;
+      link.click();
+      await new Promise(resolve => setTimeout(resolve, 200));
     }
   }
 
@@ -452,15 +441,8 @@ export default function Home() {
               </div>
               {images.length > 0 && (
                 <div className="flex justify-center">
-                  <Button onClick={downloadAllImages} disabled={downloading}>
-                    {downloading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        下载中...
-                      </>
-                    ) : (
-                      '下载所有图片'
-                    )}
+                  <Button onClick={downloadAllImages}>
+                    下载所有图片
                   </Button>
                 </div>
               )}
