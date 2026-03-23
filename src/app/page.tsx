@@ -34,6 +34,7 @@ export default function Home() {
   const [blockSpacing, setBaseLineHeight] = useState(14);
   const [activeTab, setActiveTab] = useState('blocks');
   const [loading, setLoading] = useState(false);
+  const [downloading, setDownloading] = useState(false);
   const [shouldMeasure, setShouldMeasure] = useState(false);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -98,6 +99,7 @@ export default function Home() {
   }
 
   async function downloadAllImages() {
+    setDownloading(true);
     const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
     const elements = document.querySelectorAll('[data-image-index]');
     for (let i = 0; i < elements.length; i++) {
@@ -112,6 +114,7 @@ export default function Home() {
       link.click();
       await new Promise(resolve => setTimeout(resolve, 200));
     }
+    setDownloading(false);
   }
 
   useEffect(() => {
@@ -441,8 +444,15 @@ export default function Home() {
               </div>
               {images.length > 0 && (
                 <div className="flex justify-center">
-                  <Button onClick={downloadAllImages}>
-                    下载所有图片
+                  <Button onClick={downloadAllImages} disabled={downloading}>
+                    {downloading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        下载中...
+                      </>
+                    ) : (
+                      '下载所有图片'
+                    )}
                   </Button>
                 </div>
               )}
