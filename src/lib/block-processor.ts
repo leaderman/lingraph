@@ -82,7 +82,7 @@ function image(block: any, config: BlockConfig) {
   block.html = `<div><img src="${url}" /></div>`;
 }
 
-export async function processBlockByType(block: any, config: BlockConfig) {
+export function processBlockByType(block: any, config: BlockConfig) {
   const blockType = block.json.block_type;
 
   switch (blockType) {

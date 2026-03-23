@@ -144,11 +144,11 @@ export default function Home() {
       
       const rawBlocks = result.data || [];
       const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, sequence: 1, imageWidth, imageHeight };
-      const blocks = await Promise.all(rawBlocks.map(async (json: any) => {
+      const blocks = rawBlocks.map((json: any) => {
         const block = { json, html: '' };
-        await processBlockByType(block, config);
+        processBlockByType(block, config);
         return block;
-      }));
+      });
       
       setBlocks(blocks);
       setShouldMeasure(true);
