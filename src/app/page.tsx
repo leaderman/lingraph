@@ -120,7 +120,7 @@ export default function Home() {
       .then((data) => {
         if (data.code === 200) {
           setAppName(data.data);
-          document.title = data.data;
+          document.title = data.data + '- 飞书云文档转图片';
         }
       });
   }, []);
