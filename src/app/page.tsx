@@ -129,6 +129,7 @@ export default function Home() {
     if (loading) return;
     setLoading(true);
     setBlocks([]);
+    setImages([]);
     try {
       const response = await fetch('/api/parse', {
         method: 'POST',
