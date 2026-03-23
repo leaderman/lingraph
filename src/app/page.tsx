@@ -415,7 +415,11 @@ export default function Home() {
               ))}
             </TabsContent>
             
-            <TabsContent value="images" className="flex flex-wrap justify-evenly">
+            <TabsContent 
+              value="images" 
+              className="grid gap-4"
+              style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${imageWidth * imageScale + 32}px, 1fr))` }}
+            >
               {images.map((image, index) => (
                 <div
                   key={index}
