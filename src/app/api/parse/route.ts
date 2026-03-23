@@ -53,7 +53,6 @@ export async function POST(request: NextRequest) {
       if (type !== 27) continue;
       
       const token = block.image.token;
-      console.log('处理图片 block:', block.block_id, 'token:', token);
       
       const res: any = await larkClient.drive.v1.media.batchGetTmpDownloadUrl({
         params: {
@@ -62,7 +61,6 @@ export async function POST(request: NextRequest) {
       });
       
       block.image.url = res.data.tmp_download_urls[0].tmp_download_url;
-      console.log('设置图片 URL:', block.block_id, 'URL:', block.image.url);
     }
 
     return NextResponse.json({
