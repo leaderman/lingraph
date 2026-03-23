@@ -60,13 +60,7 @@ export async function POST(request: NextRequest) {
         },
       });
       
-      const downloadUrl = res.data.tmp_download_urls[0].tmp_download_url;
-      
-      // 同时设置到 block.image.url 和 block.json.image.url，确保一致
-      block.image.url = downloadUrl;
-      if (block.json && block.json.image) {
-        block.json.image.url = downloadUrl;
-      }
+      block.image.url = res.data.tmp_download_urls[0].tmp_download_url;
     }
 
     return NextResponse.json({
