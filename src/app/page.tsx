@@ -28,7 +28,7 @@ export default function Home() {
   const [textFontSize, setTextFontSize] = useState(18);
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
-  const [imageScale, setImageScale] = useState(0.3);
+  const [imageScale, setImageScale] = useState(0.6);
   const [paddingX, setPaddingX] = useState(64);
   const [paddingY, setPaddingY] = useState(64);
   const [blockSpacing, setBaseLineHeight] = useState(14);
