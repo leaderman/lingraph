@@ -6,7 +6,7 @@ interface BlockConfig {
   heading2FontSize: number;
   heading3FontSize: number;
   textFontSize: number;
-  baseLineHeight: number;
+  blockSpacing: number;
   sequence: number;
   imageWidth: number;
   imageHeight: number;
@@ -21,32 +21,32 @@ function page(block: any, config: BlockConfig) {
 function text(block: any, config: BlockConfig) {
   block.block_name = '文本';
   const content = block.json.text?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.baseLineHeight}px;">${content || ''}</div>`;
+  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px;">${content || ''}</div>`;
 }
 
 function heading1(block: any, config: BlockConfig) {
   block.block_name = '一级标题';
   const content = block.json.heading1?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${config.heading1FontSize}px; font-weight:600; padding-top:${config.baseLineHeight}px;">${content || ''}</div>`;
+  block.html = `<div style="font-size:${config.heading1FontSize}px; font-weight:600; padding-top:${config.blockSpacing}px;">${content || ''}</div>`;
 }
 
 function heading2(block: any, config: BlockConfig) {
   block.block_name = '二级标题';
   const content = block.json.heading2?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${config.heading2FontSize}px; font-weight:600; padding-top:${config.baseLineHeight}px;">${content || ''}</div>`;
+  block.html = `<div style="font-size:${config.heading2FontSize}px; font-weight:600; padding-top:${config.blockSpacing}px;">${content || ''}</div>`;
 }
 
 function heading3(block: any, config: BlockConfig) {
   block.block_name = '三级标题';
   const content = block.json.heading3?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${config.heading3FontSize}px; font-weight:600; padding-top:${config.baseLineHeight}px;">${content || ''}</div>`;
+  block.html = `<div style="font-size:${config.heading3FontSize}px; font-weight:600; padding-top:${config.blockSpacing}px;">${content || ''}</div>`;
 }
 
 function bullet(block: any, config: BlockConfig) {
   block.block_name = '无序列表';
   const elements = block.json.bullet?.elements || [];
   const content = elements.map((el: any) => el.text_run?.content || '').join('');
-  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.baseLineHeight}px;"><ul style="list-style-type:disc; padding-left:20px;"><li>${content}</li></ul></div>`;
+  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px;"><ul style="list-style-type:disc; padding-left:20px;"><li>${content}</li></ul></div>`;
 }
 
 function ordered(block: any, config: BlockConfig) {
@@ -59,7 +59,7 @@ function ordered(block: any, config: BlockConfig) {
   } else {
     config.sequence = config.sequence + 1;
   }
-  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.baseLineHeight}px;"><ol start="${config.sequence}" style="list-style-type:decimal; padding-left:20px;"><li>${content}</li></ol></div>`;
+  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px;"><ol start="${config.sequence}" style="list-style-type:decimal; padding-left:20px;"><li>${content}</li></ol></div>`;
 }
 
 function code(block: any, config: BlockConfig) {
@@ -74,13 +74,13 @@ function code(block: any, config: BlockConfig) {
   // 直接高亮生成 HTML
   const highlighted = hljs.highlight(codeContent, { language: lang }).value;
   
-  block.html = `<div style="padding-top:${config.baseLineHeight}px;"><pre><code class="hljs language-${lang}">${highlighted}</code></pre></div>`;
+  block.html = `<div style="padding-top:${config.blockSpacing}px;"><pre><code class="hljs language-${lang}">${highlighted}</code></pre></div>`;
 }
 
 function image(block: any, config: BlockConfig) {
   block.block_name = '图片';
   const url = block.json.image?.url;
-  block.html = `<div style="padding-top:${config.baseLineHeight}px;"><img src="${url}" /></div>`;
+  block.html = `<div style="padding-top:${config.blockSpacing}px;"><img src="${url}" /></div>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {

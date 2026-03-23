@@ -30,7 +30,7 @@ export default function Home() {
   const [imageHeight, setImageHeight] = useState(1440);
   const [paddingX, setPaddingX] = useState(64);
   const [paddingY, setPaddingY] = useState(64);
-  const [baseLineHeight, setBaseLineHeight] = useState(14);
+  const [blockSpacing, setBaseLineHeight] = useState(14);
   const [activeTab, setActiveTab] = useState('blocks');
   const [loading, setLoading] = useState(false);
   const [shouldMeasure, setShouldMeasure] = useState(false);
@@ -147,7 +147,7 @@ export default function Home() {
       const result = await response.json();
       
       const rawBlocks = result.data || [];
-      const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, baseLineHeight, sequence: 1, imageWidth, imageHeight };
+      const config = { titleFontSize, heading1FontSize, heading2FontSize, heading3FontSize, textFontSize, blockSpacing, sequence: 1, imageWidth, imageHeight };
       const blocks = rawBlocks.map((json: any) => {
         const block = { json, html: '' };
         processBlockByType(block, config);
@@ -294,13 +294,13 @@ export default function Home() {
               </div>
             </div>
             <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
-              <h4 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">行距</h4>
+              <h4 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">间距</h4>
               <div className="space-y-3">
                 <div className="flex items-center gap-4">
-                  <Label className="flex-1">通用行距</Label>
+                  <Label className="flex-1">块间距</Label>
                   <Input
                     type="number"
-                    value={baseLineHeight}
+                    value={blockSpacing}
                     onChange={(e) => setBaseLineHeight(Number(e.target.value))}
                     className="w-24"
                   />
