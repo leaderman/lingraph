@@ -38,47 +38,35 @@ export default function Home() {
   useEffect(() => {
     if (!shouldMeasure || blocks.length === 0) return;
     
-    let rafId: number;
-    
-    const measure = () => {
-      // 等待所有图片加载完成
-      const images = document.querySelectorAll('img');
-      const imagePromises = Array.from(images).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise<void>(resolve => {
-          img.onload = () => resolve();
-          img.onerror = () => resolve();
-        });
+    // 等待所有图片加载完成
+    const images = document.querySelectorAll('img');
+    const imagePromises = Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise<void>(resolve => {
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
       });
-      
-      Promise.all(imagePromises).then(() => {
-        const newBlocks = blocks.map((block, index) => {
-          const el = blockRefs.current[index];
-          const width = el?.clientWidth || 0;
-          const height = el?.clientHeight || 0;
-          return {
-            ...block,
-            json: {
-              ...block.json,
-              block_width: width,
-              block_height: height
-            }
-          };
-        });
-        
-        setBlocks(newBlocks);
-        setShouldMeasure(false);
-        createImages(newBlocks);
-      });
-    };
-    
-    // 延迟到浏览器绘制完成后，确保 blockRefs 已正确赋值
-    // 使用双重 raf 确保在 React ref 赋值完成后才测量
-    rafId = requestAnimationFrame(() => {
-      rafId = requestAnimationFrame(measure);
     });
     
-    return () => cancelAnimationFrame(rafId);
+    Promise.all(imagePromises).then(() => {
+      const newBlocks = blocks.map((block, index) => {
+        const el = blockRefs.current[index];
+        const width = el?.clientWidth || 0;
+        const height = el?.clientHeight || 0;
+        return {
+          ...block,
+          json: {
+            ...block.json,
+            block_width: width,
+            block_height: height
+          }
+        };
+      });
+      
+      setBlocks(newBlocks);
+      setShouldMeasure(false);
+      createImages(newBlocks);
+    });
   }, [shouldMeasure, blocks]);
 
   function createImages(blocks: any[]) {
@@ -144,10 +132,6 @@ export default function Home() {
     setImages([]);
     setShouldMeasure(false);
     blockRefs.current = [];
-    
-    // 等待 React 完成清空状态的渲染，确保 DOM 和 ref 已重置
-    await new Promise(resolve => setTimeout(resolve, 0));
-    
     try {
       const response = await fetch('/api/parse', {
         method: 'POST',
