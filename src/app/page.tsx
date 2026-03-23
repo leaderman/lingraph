@@ -21,11 +21,11 @@ export default function Home() {
   const [blocks, setBlocks] = useState<any[]>([]);
   const [images, setImages] = useState<any[]>([]);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [titleFontSize, setTitleFontSize] = useState(30);
-  const [heading1FontSize, setHeading1FontSize] = useState(26);
-  const [heading2FontSize, setHeading2FontSize] = useState(24);
-  const [heading3FontSize, setHeading3FontSize] = useState(22);
-  const [textFontSize, setTextFontSize] = useState(16);
+  const [titleFontSize, setTitleFontSize] = useState(32);
+  const [heading1FontSize, setHeading1FontSize] = useState(28);
+  const [heading2FontSize, setHeading2FontSize] = useState(26);
+  const [heading3FontSize, setHeading3FontSize] = useState(24);
+  const [textFontSize, setTextFontSize] = useState(18);
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
   const [paddingX, setPaddingX] = useState(64);
