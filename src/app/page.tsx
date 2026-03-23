@@ -420,10 +420,10 @@ export default function Home() {
                 <div
                   key={index}
                   className="flex justify-center rounded-lg bg-white p-4 dark:bg-slate-800"
+                  style={{ transform: `scale(${imageScale})`, transformOrigin: 'top left' }}
                 >
                   <div
                     className="inline-block rounded border border-slate-200 dark:border-slate-700"
-                    style={{ transform: `scale(${imageScale})`, transformOrigin: 'top left' }}
                     dangerouslySetInnerHTML={{ __html: image.html }}
                   />
                 </div>
