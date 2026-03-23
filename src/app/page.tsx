@@ -93,6 +93,7 @@ export default function Home() {
     }
 
     setImages(newImages);
+    setActiveTab('images');
   }
 
   async function downloadAllImages() {
