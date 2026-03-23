@@ -73,7 +73,10 @@ export default function Home() {
     };
     
     // 延迟到浏览器绘制完成后，确保 blockRefs 已正确赋值
-    rafId = requestAnimationFrame(measure);
+    // 使用双重 raf 确保在 React ref 赋值完成后才测量
+    rafId = requestAnimationFrame(() => {
+      rafId = requestAnimationFrame(measure);
+    });
     
     return () => cancelAnimationFrame(rafId);
   }, [shouldMeasure, blocks]);
