@@ -132,9 +132,9 @@ export default function Home() {
     setBlocks([]);
     setImages([]);
     setShouldMeasure(false);
-    
-    setActiveTab('blocks');
     blockRefs.current = [];
+    setActiveTab('blocks');
+    
     try {
       const response = await fetch('/api/parse', {
         method: 'POST',
