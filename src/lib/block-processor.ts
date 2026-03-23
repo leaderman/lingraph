@@ -79,7 +79,7 @@ function code(block: any, config: BlockConfig) {
 
 function image(block: any, config: BlockConfig) {
   block.block_name = '图片';
-  const url = block.json.image?.url;
+  const url = block.json.image.url;
   block.html = `<div style="padding-top:${config.blockSpacing}px;"><img src="${url}" /></div>`;
 }
 
