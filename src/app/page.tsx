@@ -127,10 +127,13 @@ export default function Home() {
 
   const handleLayout = async () => {
     if (loading) return;
+    
     setLoading(true);
     setBlocks([]);
     setImages([]);
     setShouldMeasure(false);
+    
+    setActiveTab('blocks');
     blockRefs.current = [];
     try {
       const response = await fetch('/api/parse', {
