@@ -119,8 +119,9 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         if (data.code === 200) {
-          setAppName(data.data + '- 飞书云文档转图片');
-          document.title = data.data + '- 飞书云文档转图片';
+          const suffix = ' - 飞书云文档转图片';
+          setAppName(data.data + suffix);
+          document.title = data.data + suffix;
         }
       });
   }, []);
