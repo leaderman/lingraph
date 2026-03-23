@@ -80,7 +80,14 @@ function code(block: any, config: BlockConfig) {
 function image(block: any, config: BlockConfig) {
   block.block_name = '图片';
   const url = block.json.image.url;
-  block.html = `<div style="padding-top:${config.blockSpacing}px;"><img src="${url}" /></div>`;
+  const width = block.json.image.width;
+  const scale = block.json.image.scale;
+  block.html = `<div style="padding-top:${config.blockSpacing}px;">
+  <img
+    src="${url}"
+    style="width:${width * scale}px; max-width:100%; height:auto;"
+  />
+</div>`;
 }
 
 export function processBlockByType(block: any, config: BlockConfig) {
