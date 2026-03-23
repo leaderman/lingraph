@@ -34,8 +34,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [shouldMeasure, setShouldMeasure] = useState(false);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const abortControllerRef = useRef<AbortController | null>(null);
-  const requestIdRef = useRef(0);
 
   useEffect(() => {
     if (!shouldMeasure || blocks.length === 0) return;
@@ -67,11 +65,11 @@ export default function Home() {
       
       setBlocks(newBlocks);
       setShouldMeasure(false);
-      createImages(newBlocks, imageWidth, imageHeight, paddingX, paddingY);
+      createImages(newBlocks);
     });
-  }, [shouldMeasure, blocks, imageWidth, imageHeight, paddingX, paddingY]);
+  }, [shouldMeasure, blocks]);
 
-  function createImages(blocks: any[], imageWidth: number, imageHeight: number, paddingX: number, paddingY: number) {
+  function createImages(blocks: any[]) {
     const newImages: any[] = [];
     let currentImage: any = null;
     let currentHeight = 0;
@@ -129,25 +127,11 @@ export default function Home() {
 
   const handleLayout = async () => {
     if (loading) return;
-    
-    // 取消之前的请求
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    
-    // 生成新的请求 ID
-    const currentRequestId = ++requestIdRef.current;
-    
-    // 彻底清理所有状态
     setLoading(true);
     setBlocks([]);
     setImages([]);
     setShouldMeasure(false);
     blockRefs.current = [];
-    
-    // 创建新的 abort controller
-    abortControllerRef.current = new AbortController();
-    
     try {
       const response = await fetch('/api/parse', {
         method: 'POST',
@@ -155,14 +139,7 @@ export default function Home() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ url }),
-        signal: abortControllerRef.current.signal,
       });
-      
-      // 如果请求被取消或不是最新请求，直接返回
-      if (abortControllerRef.current.signal.aborted || requestIdRef.current !== currentRequestId) {
-        return;
-      }
-      
       const result = await response.json();
       
       const rawBlocks = result.data || [];
@@ -173,23 +150,10 @@ export default function Home() {
         return block;
       }));
       
-      // 再次检查是否是最新请求
-      if (requestIdRef.current !== currentRequestId) {
-        return;
-      }
-      
       setBlocks(blocks);
       setShouldMeasure(true);
-    } catch (error: any) {
-      if (error.name !== 'AbortError') {
-        console.error('排版失败:', error);
-      }
     } finally {
-      // 只有当前请求完成才重置 loading
-      if (requestIdRef.current === currentRequestId) {
-        setLoading(false);
-        abortControllerRef.current = null;
-      }
+      setLoading(false);
     }
   };
 
