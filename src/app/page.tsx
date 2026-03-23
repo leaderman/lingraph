@@ -65,11 +65,11 @@ export default function Home() {
       
       setBlocks(newBlocks);
       setShouldMeasure(false);
-      createImages(newBlocks);
+      createImages(newBlocks, imageWidth, imageHeight, paddingX, paddingY);
     });
-  }, [shouldMeasure, blocks]);
+  }, [shouldMeasure, blocks, imageWidth, imageHeight, paddingX, paddingY]);
 
-  function createImages(blocks: any[]) {
+  function createImages(blocks: any[], imageWidth: number, imageHeight: number, paddingX: number, paddingY: number) {
     const newImages: any[] = [];
     let currentImage: any = null;
     let currentHeight = 0;
