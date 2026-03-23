@@ -103,6 +103,7 @@ export default function Home() {
       const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
         skipFonts: true,
         pixelRatio: 2,
+        includeQueryParams: true,
       });
       const link = document.createElement('a');
       link.download = `${timestamp}-image-${i + 1}.png`;
