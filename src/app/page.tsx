@@ -36,6 +36,7 @@ export default function Home() {
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    console.log('[useEffect] 触发测量, shouldMeasure:', shouldMeasure, 'blocks.length:', blocks.length);
     if (!shouldMeasure || blocks.length === 0) return;
     
     // 等待所有图片加载完成
@@ -49,6 +50,7 @@ export default function Home() {
     });
     
     Promise.all(imagePromises).then(() => {
+      console.log('[useEffect] 图片加载完成，开始测量尺寸');
       const newBlocks = blocks.map((block, index) => {
         const el = blockRefs.current[index];
         if (!el) return block;
