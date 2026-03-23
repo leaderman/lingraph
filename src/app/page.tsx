@@ -1,7 +1,7 @@
 'use client';
 
 import * as htmlToImage from 'html-to-image';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Settings, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { processBlockByType } from '@/lib/block-processor';
-import hljs from 'highlight.js';
 
 export default function Home() {
   const [appName, setAppName] = useState('');
