@@ -21,7 +21,7 @@ function page(block: any, config: BlockConfig) {
 function text(block: any, config: BlockConfig) {
   block.block_name = '文本';
   const content = block.json.text?.elements?.[0]?.text_run?.content;
-  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px;">${content || ''}</div>`;
+  block.html = `<div style="font-size:${config.textFontSize}px; padding-top:${config.blockSpacing}px; font-weight:400;">${content || ''}</div>`;
 }
 
 function heading1(block: any, config: BlockConfig) {
