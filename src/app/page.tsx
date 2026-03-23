@@ -99,11 +99,15 @@ export default function Home() {
 
   async function downloadAllImages() {
     const btn = document.getElementById('download-btn') as HTMLButtonElement;
-    const originalText = btn?.textContent || '下载所有图片';
+    const textSpan = btn?.querySelector('.btn-text');
     
-    if (btn) {
+    if (btn && textSpan) {
       btn.disabled = true;
-      btn.textContent = '下载中...';
+      // 创建 loading 图标
+      const loader = document.createElement('span');
+      loader.className = 'download-loader mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent';
+      btn.insertBefore(loader, textSpan);
+      textSpan.textContent = '下载中...';
     }
     
     try {
@@ -122,9 +126,12 @@ export default function Home() {
         await new Promise(resolve => setTimeout(resolve, 200));
       }
     } finally {
-      if (btn) {
+      if (btn && textSpan) {
         btn.disabled = false;
-        btn.textContent = originalText;
+        // 移除 loading 图标
+        const loader = btn.querySelector('.download-loader');
+        if (loader) loader.remove();
+        textSpan.textContent = '下载所有图片';
       }
     }
   }
@@ -456,8 +463,8 @@ export default function Home() {
               </div>
               {images.length > 0 && (
                 <div className="flex justify-center">
-                  <Button id="download-btn" onClick={downloadAllImages}>
-                    下载所有图片
+                  <Button id="download-btn" onClick={downloadAllImages} className="w-32 justify-center">
+                    <span className="btn-text">下载所有图片</span>
                   </Button>
                 </div>
               )}
