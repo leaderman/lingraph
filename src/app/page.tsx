@@ -415,30 +415,31 @@ export default function Home() {
               ))}
             </TabsContent>
             
-            <TabsContent 
-              value="images" 
-              className="grid gap-4"
-              style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${imageWidth * imageScale + 32}px, 1fr))` }}
-            >
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className="rounded-lg bg-white p-4 dark:bg-slate-800"
-                  style={{ 
-                    transform: `scale(${imageScale})`, 
-                    transformOrigin: 'top left',
-                    marginRight: `${-imageWidth * (1 - imageScale)}px`,
-                    marginBottom: `${-imageHeight * (1 - imageScale)}px`,
-                  }}
-                >
+            <TabsContent value="images" className="space-y-4">
+              <div 
+                className="grid gap-4"
+                style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${imageWidth * imageScale + 32}px, 1fr))` }}
+              >
+                {images.map((image, index) => (
                   <div
-                    className="inline-block rounded border border-slate-200 dark:border-slate-700"
-                    dangerouslySetInnerHTML={{ __html: image.html }}
-                  />
-                </div>
-              ))}
+                    key={index}
+                    className="rounded-lg bg-white p-4 dark:bg-slate-800"
+                    style={{ 
+                      transform: `scale(${imageScale})`, 
+                      transformOrigin: 'top left',
+                      marginRight: `${-imageWidth * (1 - imageScale)}px`,
+                      marginBottom: `${-imageHeight * (1 - imageScale)}px`,
+                    }}
+                  >
+                    <div
+                      className="inline-block rounded border border-slate-200 dark:border-slate-700"
+                      dangerouslySetInnerHTML={{ __html: image.html }}
+                    />
+                  </div>
+                ))}
+              </div>
               {images.length > 0 && (
-                <div className="flex w-full justify-center">
+                <div className="flex justify-center">
                   <Button onClick={downloadAllImages}>
                     下载所有图片
                   </Button>
