@@ -434,14 +434,14 @@ export default function Home() {
                     />
                   </div>
                 ))}
+                {images.length > 0 && (
+                  <div className="w-full flex justify-center">
+                    <Button onClick={downloadAllImages}>
+                      下载所有图片
+                    </Button>
+                  </div>
+                )}
               </div>
-              {images.length > 0 && (
-                <div className="flex w-full justify-center">
-                  <Button onClick={downloadAllImages}>
-                    下载所有图片
-                  </Button>
-                </div>
-              )}
             </TabsContent>
           </Tabs>
         </div>
