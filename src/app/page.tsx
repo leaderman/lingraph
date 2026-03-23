@@ -99,10 +99,15 @@ export default function Home() {
   }
 
   async function downloadAllImages() {
+    const elements = document.querySelectorAll('[data-image-index]');
+    if (elements.length === 0) return;
+    
     setDownloading(true);
+    // 延迟一下确保 DOM 稳定
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     try {
       const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
-      const elements = document.querySelectorAll('[data-image-index]');
       for (let i = 0; i < elements.length; i++) {
         const dataUrl = await htmlToImage.toPng(elements[i] as HTMLElement, {
           skipFonts: true,
