@@ -69,20 +69,22 @@ export default function Home() {
     });
   }, [shouldMeasure, blocks]);
 
+  function createNewImage(index: number, html: string, width: number, height: number, paddingY: number, paddingX: number) {
+    return {
+      html: `<div data-image-index="${index}" style="width: ${width}px; height: ${height}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
+    };
+  }
+
   function createImages(blocks: any[]) {
     const newImages: any[] = [];
     let currentImage: any = null;
     let currentHeight = 0;
 
-    const createNewImage = (index: number, html: string) => ({
-      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
-    });
-
     for (const block of blocks) {
       const blockHeight = block.json?.block_height || 0;
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
-        currentImage = createNewImage(newImages.length, block.html);
+        currentImage = createNewImage(newImages.length, block.html, imageWidth, imageHeight, paddingY, paddingX);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
       } else {
