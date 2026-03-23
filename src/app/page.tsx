@@ -100,6 +100,9 @@ export default function Home() {
     const timestamp = new Date().toISOString().replace(/[T:.\-]/g, '').slice(0, 14);
     const elements = document.querySelectorAll('[data-image-index]');
     for (let i = 0; i < elements.length; i++) {
+      console.log(`Element ${i}:`, elements[i]);
+      console.log(`Element ${i} innerHTML:`, elements[i].innerHTML);
+      
       // 等待当前元素内的所有图片加载完成
       const imgs = elements[i].querySelectorAll('img');
       await Promise.all(
