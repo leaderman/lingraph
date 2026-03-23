@@ -415,24 +415,26 @@ export default function Home() {
               ))}
             </TabsContent>
             
-            <TabsContent value="images" className="flex flex-wrap gap-4">
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className="rounded-lg bg-white p-4 dark:bg-slate-800"
-                  style={{ 
-                    transform: `scale(${imageScale})`, 
-                    transformOrigin: 'top left',
-                    marginRight: `${-imageWidth * (1 - imageScale)}px`,
-                    marginBottom: `${-imageHeight * (1 - imageScale)}px`,
-                  }}
-                >
+            <TabsContent value="images" className="flex justify-center">
+              <div className="flex flex-wrap gap-4">
+                {images.map((image, index) => (
                   <div
-                    className="inline-block rounded border border-slate-200 dark:border-slate-700"
-                    dangerouslySetInnerHTML={{ __html: image.html }}
-                  />
-                </div>
-              ))}
+                    key={index}
+                    className="rounded-lg bg-white p-4 dark:bg-slate-800"
+                    style={{ 
+                      transform: `scale(${imageScale})`, 
+                      transformOrigin: 'top left',
+                      marginRight: `${-imageWidth * (1 - imageScale)}px`,
+                      marginBottom: `${-imageHeight * (1 - imageScale)}px`,
+                    }}
+                  >
+                    <div
+                      className="inline-block rounded border border-slate-200 dark:border-slate-700"
+                      dangerouslySetInnerHTML={{ __html: image.html }}
+                    />
+                  </div>
+                ))}
+              </div>
               {images.length > 0 && (
                 <div className="flex w-full justify-center">
                   <Button onClick={downloadAllImages}>
