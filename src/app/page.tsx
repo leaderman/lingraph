@@ -76,8 +76,8 @@ export default function Home() {
     let currentImage: any = null;
     let currentHeight = 0;
 
-    const createNewImage = (index: number, html: string) => ({
-      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
+    const createNewImage = (index: number) => ({
+      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;"></div>`,
     });
 
     for (const [index, block] of blocks.entries()) {
@@ -96,7 +96,7 @@ export default function Home() {
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
         console.log('插入块到新图片');
         
-        currentImage = createNewImage(newImages.length, block.html);
+        currentImage = createNewImage(newImages.length);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
       } else {
