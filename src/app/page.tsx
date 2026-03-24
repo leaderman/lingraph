@@ -453,19 +453,17 @@ export default function Home() {
             </TabsContent>
             
             <TabsContent value="images" className="space-y-4">
-              <div>
-                {images.map((image, index) => (
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  className="rounded-lg bg-white p-4 dark:bg-slate-800"
+                >
                   <div
-                    key={index}
-                    className="rounded-lg bg-white p-4 dark:bg-slate-800"
-                  >
-                    <div
-                      className="rounded border border-slate-200 dark:border-slate-700"
-                      dangerouslySetInnerHTML={{ __html: image.html }}
-                    />
-                  </div>
-                ))}
-              </div>
+                    className="rounded border border-slate-200 dark:border-slate-700"
+                    dangerouslySetInnerHTML={{ __html: image.html }}
+                  />
+                </div>
+              ))}
               {images.length > 0 && (
                 <div className="flex justify-center">
                   <Button id="download-btn" onClick={downloadAllImages} className="w-32 justify-center">
