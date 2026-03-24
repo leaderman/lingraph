@@ -456,13 +456,9 @@ export default function Home() {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="rounded-lg bg-white p-4 dark:bg-slate-800"
-                >
-                  <div
-                    className="rounded border border-slate-200 dark:border-slate-700"
-                    dangerouslySetInnerHTML={{ __html: image.html }}
-                  />
-                </div>
+                  className="rounded-lg bg-white p-4 dark:bg-slate-800 border border-slate-200 dark:border-slate-700"
+                  dangerouslySetInnerHTML={{ __html: image.html }}
+                />
               ))}
               {images.length > 0 && (
                 <div className="flex justify-center">
