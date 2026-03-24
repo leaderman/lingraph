@@ -80,8 +80,10 @@ export default function Home() {
       html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; box-sizing: border-box;">${html}</div>`,
     });
 
-    for (const block of blocks) {
+    for (const [index, block] of blocks.entries()) {
       const blockHeight = block.json.block_height;
+
+      console.log('处理第', index, '个块');
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
         currentImage = createNewImage(newImages.length, block.html);
