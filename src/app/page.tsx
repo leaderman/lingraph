@@ -88,7 +88,6 @@ export default function Home() {
       console.log('图片高度 ', imageHeight);
       console.log('图片当前高度 ', currentHeight);
       
-      const blockWidth = block.json.block_width;
       const blockHeight = block.json.block_height;
       console.log('块高度 ', blockHeight);
       console.log('图片插入块高度 ', currentHeight + blockHeight, '，超出图片高度 ', currentHeight + blockHeight > imageHeight);
@@ -103,13 +102,9 @@ export default function Home() {
       } else {
         console.log('插入块到当前图片');
         
-        currentImage.html = currentImage.html.replace('</div>', `<div style="width: ${blockWidth}px; height: ${blockHeight}px; overflow: hidden;">${block.html}</div></div>`);
+        currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
         currentHeight += blockHeight;
       }
-    }
-
-    for (const newImage of newImages) {
-      console.log('newImage.html:', newImage.html);
     }
 
     setImages(newImages);
