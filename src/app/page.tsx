@@ -94,7 +94,7 @@ export default function Home() {
       
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
-        console.log('创建新图片');
+        console.log('插入块到新图片');
         
         currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight + 2 * paddingY;
