@@ -452,7 +452,7 @@ export default function Home() {
               ))}
             </TabsContent>
             
-            <TabsContent value="images" className="space-y-4">
+            <TabsContent value="images">
               {images.map((image, index) => (
                 <div
                   key={index}
