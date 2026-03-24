@@ -78,7 +78,7 @@ export default function Home() {
     let currentHeight = 0;
 
     const createNewImage = (index: number) => ({
-      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px;"></div>`,
+      html: `<div data-image-index="${index}" style="width: ${imageWidth}px; height: ${imageHeight}px; padding: ${paddingY}px ${paddingX}px; background-color: ${imageBackgroundColor};"></div>`,
     });
 
     for (const [index, block] of blocks.entries()) {
