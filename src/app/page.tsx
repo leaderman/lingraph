@@ -455,21 +455,15 @@ export default function Home() {
             <TabsContent value="images" className="space-y-4">
               <div 
                 className="grid gap-4"
-                style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${imageWidth * imageScale + 32}px, 1fr))` }}
+                style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${imageWidth}px, 1fr))` }}
               >
                 {images.map((image, index) => (
                   <div
                     key={index}
                     className="rounded-lg bg-white p-4 dark:bg-slate-800"
-                    style={{ 
-                      transform: `scale(${imageScale})`, 
-                      transformOrigin: 'top left',
-                      marginRight: `${-imageWidth * (1 - imageScale)}px`,
-                      marginBottom: `${-imageHeight * (1 - imageScale)}px`,
-                    }}
                   >
                     <div
-                      className="inline-block rounded border border-slate-200 dark:border-slate-700"
+                      className="rounded border border-slate-200 dark:border-slate-700"
                       dangerouslySetInnerHTML={{ __html: image.html }}
                     />
                   </div>
