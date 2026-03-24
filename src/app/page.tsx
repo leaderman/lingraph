@@ -81,7 +81,7 @@ export default function Home() {
     });
 
     for (const block of blocks) {
-      const blockHeight = block.json?.block_height || 0;
+      const blockHeight = block.json.block_height;
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
         currentImage = createNewImage(newImages.length, block.html);
