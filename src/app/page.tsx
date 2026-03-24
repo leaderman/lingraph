@@ -29,6 +29,7 @@ export default function Home() {
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
   const [imageScale, setImageScale] = useState(0.6);
+  const [imageBackgroundColor, setImageBackgroundColor] = useState('#f7f7f7');
   const [paddingX, setPaddingX] = useState(64);
   const [paddingY, setPaddingY] = useState(64);
   const [blockSpacing, setBaseLineHeight] = useState(14);
@@ -306,6 +307,20 @@ export default function Home() {
                     value={imageScale}
                     onChange={(e) => setImageScale(Number(e.target.value))}
                     className="w-24"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="border-t border-slate-200 pt-4 dark:border-slate-700">
+              <h4 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">颜色</h4>
+              <div className="space-y-3">
+                <div className="flex items-center gap-4">
+                  <Label className="flex-1">图片背景色</Label>
+                  <Input
+                    type="text"
+                    value={imageBackgroundColor}
+                    onChange={(e) => setImageBackgroundColor(e.target.value)}
+                    className="w-32"
                   />
                 </div>
               </div>
