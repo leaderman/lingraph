@@ -81,7 +81,7 @@ export default function Home() {
     });
 
     for (const [index, block] of blocks.entries()) {
-      console.log('插入第 ', index, ' 个块');
+      console.log('处理第 ', index, ' 个块');
       
       const blockHeight = block.json.block_height;
 
