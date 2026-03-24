@@ -451,7 +451,7 @@ export default function Home() {
                 ))}
               </div>
               {images.length > 0 && (
-                <div className="mt-4 flex justify-center">
+                <div className="mt-8 flex justify-center">
                   <Button id="download-btn" onClick={downloadAllImages} className="w-32 justify-center">
                     <span className="btn-text">下载所有图片</span>
                   </Button>
