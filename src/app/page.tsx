@@ -25,7 +25,7 @@ export default function Home() {
   const [heading1FontSize, setHeading1FontSize] = useState(28);
   const [heading2FontSize, setHeading2FontSize] = useState(26);
   const [heading3FontSize, setHeading3FontSize] = useState(24);
-  const [textFontSize, setTextFontSize] = useState(18);
+  const [textFontSize, setTextFontSize] = useState(20);
   const [imageWidth, setImageWidth] = useState(1080);
   const [imageHeight, setImageHeight] = useState(1440);
   const [imageScale, setImageScale] = useState(0.6);
