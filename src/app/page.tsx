@@ -88,6 +88,7 @@ export default function Home() {
       console.log('图片高度 ', imageHeight);
       console.log('图片当前高度 ', currentHeight);
       
+      const blockWidth = block.json.block_width;
       const blockHeight = block.json.block_height;
       console.log('块高度 ', blockHeight);
       console.log('图片插入块高度 ', currentHeight + blockHeight, '，超出图片高度 ', currentHeight + blockHeight > imageHeight);
