@@ -107,6 +107,10 @@ export default function Home() {
       }
     }
 
+    for (const newImage of newImages) {
+      console.log('newImage.html:', newImage.html);
+    }
+
     setImages(newImages);
     setActiveTab('images');
   }
