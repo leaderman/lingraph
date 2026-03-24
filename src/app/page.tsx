@@ -441,7 +441,7 @@ export default function Home() {
             </TabsContent>
             
             <TabsContent value="images">
-              <div className="flex flex-wrap justify-evenly gap-4">
+              <div className="flex flex-wrap justify-between gap-4">
                 {images.map((image, index) => (
                   <div
                     key={index}
