@@ -82,10 +82,10 @@ export default function Home() {
 
     for (const [index, block] of blocks.entries()) {
       console.log('处理第 ', index, ' 个块');
-      console.log('图片高度 ', imageHeight);
       console.log('块内容', block.html);
       
       console.log('插入第 ', newImages.length + 1, ' 张图片');
+      console.log('图片高度 ', imageHeight);
       console.log('图片当前高度 ', currentHeight);
       
       const blockHeight = block.json.block_height;
