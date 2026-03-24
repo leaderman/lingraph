@@ -453,10 +453,7 @@ export default function Home() {
             </TabsContent>
             
             <TabsContent value="images" className="space-y-4">
-              <div 
-                className="grid gap-4"
-                style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${imageWidth}px, 1fr))` }}
-              >
+              <div>
                 {images.map((image, index) => (
                   <div
                     key={index}
