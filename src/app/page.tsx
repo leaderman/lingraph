@@ -87,6 +87,9 @@ export default function Home() {
       const blockHeight = block.json.block_height;
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
+        console.log('插入第 ', newImages.length + 1, ' 张图片');
+        console.log('图片当前高度 ', currentHeight);
+        
         currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
