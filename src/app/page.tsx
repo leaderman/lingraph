@@ -99,6 +99,8 @@ export default function Home() {
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
       } else {
+        console.log('插入块到图片');
+        
         currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
         currentHeight += blockHeight;
       }
