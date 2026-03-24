@@ -320,7 +320,7 @@ export default function Home() {
                     type="text"
                     value={imageBackgroundColor}
                     onChange={(e) => setImageBackgroundColor(e.target.value)}
-                    className="w-32"
+                    className="w-24"
                   />
                 </div>
               </div>
