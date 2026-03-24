@@ -99,7 +99,6 @@ export default function Home() {
         currentImage = createNewImage(newImages.length, block.html);
         currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
-        console.log('新图片 html', currentImage.html);
       } else {
         console.log('插入块到当前图片');
         
@@ -107,8 +106,6 @@ export default function Home() {
         currentHeight += blockHeight;
       }
     }
-
-    
 
     setImages(newImages);
     setActiveTab('images');
