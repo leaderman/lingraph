@@ -81,16 +81,18 @@ export default function Home() {
     });
 
     for (const [index, block] of blocks.entries()) {
+      const blockWidth = block.json.block_width;
       const blockHeight = block.json.block_height;
 
       if (currentImage === null || currentHeight + blockHeight > imageHeight) {
         currentImage = createNewImage(newImages.length);
-        currentHeight = blockHeight + 2 * paddingY;
         newImages.push(currentImage);
-      } else {
-        currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
-        currentHeight += blockHeight;
+
+        currentHeight = blockHeight + 2 * paddingY;
       }
+
+      currentImage.html = currentImage.html.replace('</div>', `${block.html}</div>`);
+      currentHeight += blockHeight;
     }
 
     setImages(newImages);
