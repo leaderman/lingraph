@@ -103,7 +103,7 @@ export default function Home() {
       } else {
         console.log('插入块到当前图片');
         
-        currentImage.html = currentImage.html.replace('</div>', `<div style="width: ${blockWidth}px; height: ${blockHeight}px;">${block.html}</div></div>`);
+        currentImage.html = currentImage.html.replace('</div>', `<div style="width: ${blockWidth}px; height: ${blockHeight}px; overflow: hidden;">${block.html}</div></div>`);
         currentHeight += blockHeight;
       }
     }
